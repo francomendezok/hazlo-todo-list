@@ -19,10 +19,19 @@ function createHeader () {
     return header;
 }
 
-
 function createSidebar () {
     const sidebar = document.createElement('div');
     sidebar.classList.add('sidebar');
+
+    const home = document.createElement('div');
+    const projects = document.createElement('div');
+
+    home.classList.add('sidebar-home');
+    projects.classList.add('sidebar-projects');
+    
+    sidebar.appendChild(home);
+    sidebar.appendChild(projects);
+
     return sidebar;
 }
 

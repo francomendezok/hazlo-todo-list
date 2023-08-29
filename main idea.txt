@@ -6,6 +6,7 @@ Design
 Features
 1. Dark Mode
 2. Hide Sidebar Menu When clicked
-3. Favourites
-4. Task properties: Title, Description, Due Date, Priority
+3. Favorites
+4. Task properties: Title, Description, Due Date, Priority, Checklist
 5. Quote Generator via API
+6. API Font Awesome For Icons
