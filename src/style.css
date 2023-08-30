@@ -25,6 +25,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 ol, ul {
 	list-style: none;
@@ -48,47 +49,116 @@ html, body {
 
 .header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-around;
     background-color: aliceblue;
 }
 
 .div-header {
-    background-color: blue;
-    width: 10%;
-    height: 50%;
-    text-align: center;
+    width: 30%;
+    height: 60%;
 }
 
 .main-container {
     display: grid;
     grid-template-columns: 1fr 4fr;
     grid-template-rows: 1fr;
-    background-color: mintcream;
+    
 }
 
-.header, .main-container, .sidebar, .main {
-    border: 2px solid green;
+.main {
+    background-color: rgba(254, 254, 254, 0);
 }
+
 
 .sidebar {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    background-color: azure;
+    justify-content: space-around;
+    background-color: rgb(219, 248, 248);
 }
 
 .sidebar-home {
-    border: 3px solid yellow;
     width: 90%;
-    height: 33%;
-    margin-top: 10%;
+    height: 50%;
 }
 
 .sidebar-projects {
-    border: 3px solid brown;
     width: 90%;
-    height: 33%;
-    margin-top: 10%;
+    height: 30%;
+}
+
+.app-logo {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+}
+
+.menu-icon {
+    display: grid;
+    justify-content: start;
+    align-items: center;
+}
+
+.dark-mode {
+    display: grid;
+    justify-content: end;
+    align-items: center;
+}
+
+.dark-mode img:hover, .menu-icon img:hover {
+    cursor: pointer;
+}
+
+.sidebar-title {
+    border-bottom: 5px solid black;
+    font-size: 250%;
+    padding-bottom: 3%;
+}
+
+.add-project {
+    display: flex;
+    align-items: center;
+    font-size: 120%;
+    gap: 2%;
+    margin-top: 5%;
+    height: 10%;
+}
+
+.add-project:hover {
+    background-color: lightslategray;
+    cursor: pointer;
+    color: white;
+    border-radius: 6px;
+}
+
+.time-period {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 3%;
+}
+
+.time-period h3 {
+    font-size: 120%;
+    margin-left: 5%;
+    font-weight: 600;
+}
+
+.time-period:hover {
+    background-color: lightslategray;
+    cursor: pointer;
+    color: white;
+    border-radius: 6px;
+}
+
+h1 {
+    font-size: 400%;
+    font-weight: 500;
 }

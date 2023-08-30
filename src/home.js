@@ -49,7 +49,6 @@ function createMainContainer () {
     return mainContainer;
 }
 
-
 function createHome () {
     const container = document.createElement('div');
     container.classList.add('container');

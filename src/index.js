@@ -1,3 +1,3 @@
-import loadHome from "./home";
+// import loadHome from "./home";
 
-loadHome();
+// loadHome();
