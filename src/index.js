@@ -1,3 +1,8 @@
-// import loadHome from "./home";
+import printSidebar from "./hideMenu";
 
-// loadHome();
+const menu = document.getElementById('menu');
+const categories = document.querySelectorAll('.time-period');
+
+categories.forEach(cat => cat.addEventListener('click', () => console.log('Hola')));
+
+menu.addEventListener('click', printSidebar);

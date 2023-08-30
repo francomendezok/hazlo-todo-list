@@ -86,7 +86,7 @@ html, body {
 
 .sidebar-projects {
     width: 90%;
-    height: 30%;
+    height: 40%;
 }
 
 .app-logo {
@@ -161,4 +161,8 @@ html, body {
 h1 {
     font-size: 400%;
     font-weight: 500;
+}
+
+.hide-sidebar {
+    display: none;
 }
