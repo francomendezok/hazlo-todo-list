@@ -3,11 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../src/style.css">
+    <link rel="shortcut icon" href="./images/shovel.png" type="image/x-icon">
     <link rel="shortcut icon" href="" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="main.js"></script>
     <title>Hazlo - To Do List</title>
 </head>
 <body>
-    <script src="main.js"></script>
+    <div class="container">
+        <header class="header">
+            <div class="div-header menu-icon">
+                <img id="menu" src="./images/menu.png" alt="menu">
+            </div>
+            <div class="div-header app-logo">
+                <div class="title">
+                    <img src="./images/shovel.png" alt="shovel">
+                    <h1>Hazlo</h1>
+                </div>
+            </div>
+            <div class="div-header dark-mode">
+                <img src="./images/dark-mode.png" alt="">
+            </div>
+        </header>
+        <div class="main-container">
+            <div class="sidebar">
+                <div class="sidebar-home">
+                    <div class="home sidebar-title">
+                        <h3>Home</h3>
+                    </div>
+                    <div class="time-period">
+                        <img src="./images/all.png" alt="">
+                        <h3>All</h3>
+                    </div>
+                    <div class="time-period">
+                        <img src="./images/today.png" alt="">
+                        <h3>Today</h3>
+                    </div>
+                    <div class="time-period">
+                        <img src="./images/week.png" alt="">
+                        <h3>Week</h3>
+                    </div>
+                    <div class="time-period">
+                        <img src="./images/important.png" alt="">
+                        <h3>Important</h3>
+                    </div>
+                    <div class="time-period">
+                        <img src="./images/favorites.png" alt="">
+                        <h3>Favorites</h3>
+                    </div>
+                    <div class="time-period">
+                        <img src="./images/completed.png" alt="">
+                        <h3>Completed</h3>
+                    </div>
+                </div>
+                <div class="sidebar-projects">
+                    <div class="projects sidebar-title">
+                        <h3>Projects</h3>
+                    </div>
+                    <div class="add-project">
+                        <img src="./images/plus.png" alt="">
+                        <h3>Add Project</h3>
+                    </div>
+                </div>
+            </div>
+            <main class="main">
+                <div class="main-info"></div>
+            </main>
+        </div>
+    </div>
+
 </body>
 </html>
