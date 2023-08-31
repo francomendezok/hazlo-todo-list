@@ -1,0 +1,7 @@
+function printAll () {
+
+}
+
+function printToday () {
+    
+}
