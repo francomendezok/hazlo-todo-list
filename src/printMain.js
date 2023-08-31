@@ -69,12 +69,25 @@ function createMainContent (text) {
 
 
 function printMain (event) {
-    const name = event.target.dataset.name;
-    createMainContent(name);
-    const categories = document.querySelectorAll('.time-period');
-    categories.forEach(cat => cat.classList.remove('clicked')); 
-    event.target.classList.add('clicked')
+    const parent = event.target.closest('.time-period');
 
+    if (event.target.classList[0] === 'time-period') {
+        console.log(event.target)
+        const name = event.target.dataset.name;
+        createMainContent(name);
+        const categories = document.querySelectorAll('.time-period');
+        categories.forEach(cat => cat.classList.remove('clicked')); 
+        event.target.classList.add('clicked')
+    }
+    else if (event.target.closest('.time-period')) {
+        const name = event.target.dataset.name;
+        createMainContent(name);
+        const categories = document.querySelectorAll('.time-period');
+        categories.forEach(cat => cat.classList.remove('clicked')); 
+        parent.classList.add('clicked')
+    }
+
+    // Else if check if the parent has time-period class and aplly class only to the parent //
 }
 
 export default printMain;
