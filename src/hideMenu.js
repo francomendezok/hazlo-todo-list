@@ -1,6 +1,4 @@
 function hideMenu () {
-    console.log("Hide")
-
     const menu = document.getElementById('menu');
     const sidebar = document.getElementById('sidebar');
     sidebar.classList.remove('sidebar');
@@ -9,8 +7,6 @@ function hideMenu () {
 }
 
 function showMenu () {
-    console.log("Show")
-
     const menu = document.getElementById('menu');
     const sidebar = document.getElementById('sidebar');
     sidebar.classList.add('sidebar');
