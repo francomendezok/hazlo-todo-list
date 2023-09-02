@@ -1,4 +1,5 @@
 function createMainContent (text) {
+    console.log('hola');
     const div = document.createElement('div')
     const h1 = document.createElement('h1')
     const main = document.querySelector('.main')
@@ -27,6 +28,15 @@ function printMain (event) {
         categories.forEach(cat => cat.classList.remove('clicked')); 
         event.target.classList.add('clicked')
     }
+    else if (event.target.classList[0] === 'div-project') {
+        // const name = event.target.dataset.name;
+        // createMainContent(name);
+        console.log('Inside');
+        const categories = document.querySelectorAll('.div-project');
+        categories.forEach(cat => cat.classList.remove('clicked-project')); 
+        event.target.classList.add('clicked-project')
+    }
+
     else if (event.target.closest('.time-period')) {
         const name = event.target.dataset.name;
         createMainContent(name);

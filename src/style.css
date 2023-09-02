@@ -85,12 +85,12 @@ html, body {
 
 .sidebar-home {
     width: 90%;
-    height: 50%;
+    height: 100%;
 }
 
 .sidebar-projects {
     width: 90%;
-    height: 45%;
+    height: 100%;
 }
 
 .app-logo {
@@ -169,6 +169,13 @@ html, body {
     border-radius: 6px;
 }
 
+.clicked-project {
+    background-color: lightgreen;
+    cursor: pointer;
+    color: white;
+    border-radius: 6px;
+}
+
 h1 {
     font-size: 400%;
     font-weight: 500;
@@ -218,9 +225,17 @@ input {
 
 .my-projects {
     display: none;
-    background-color: black;
     height: 90%;
     width: 90%;
+}
+
+#show-my-projects {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    height: 50%;
+    width: 90%;
+    overflow-y: scroll;
 }
 
 #buttons-div {
@@ -248,4 +263,32 @@ input {
 
 #decline {
     background-color: lightcoral;
+}
+
+.div-project {
+    background-color: lightslategray;
+    border-radius: 2px;
+    display: flex;
+    width: 90%;
+    height: 50%;
+    justify-content: space-around;
+    align-items: center;
+    margin: 2%;
+    text-align: center;
+    font-size: 100%;
+}
+
+.div-project:hover {
+    background-color: lightgreen;
+    color: black;
+    cursor: pointer;
+}
+
+.icon-div {
+    width: 5%;
+    height: 80%;
+}
+
+.p-container {
+    width: 80%;
 }

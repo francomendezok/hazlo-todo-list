@@ -1,4 +1,4 @@
-import { saveLocalProject, saveLocalTask, lookForLocalData } from "./localStorage";
+import { saveLocalProject, saveLocalTask, lookForLocalData, sortContainer } from "./localStorage";
 
 
 class Project {
@@ -28,18 +28,27 @@ class Project {
 
         input.placeholder = 'Enter Project Name';
         input.type = 'text';
+        input.maxLength = 15;
         blank.id = 'show-add';
         accept.id = 'accept';
         decline.id = 'decline';
         buttonsDiv.id = 'buttons-div';
 
+
         accept.addEventListener('click', function () {
-            if (input.value !== '') {
+            const regex = /^[a-zA-Z0-9]*$/; // Solo letras y números permitidos
+
+            if (input.value !== '' && regex.test(input.value)) {
                 const name = input.value;
                 createProject(name);
+                hideCreateSection();
+                renderProjects();
+            }
+            else if (!regex.test(input.value)) {
+                alert(' Please type just Letters and Numbers')
             }
             else {
-                console.log('Empty String');
+                alert('Empty String');
             }
         });
         decline.addEventListener('click', hideCreateSection);
@@ -51,18 +60,19 @@ class Project {
         blank.removeAttribute('id');
     }
 
-    function printDivProject () {
 
-    }
 
     function renderProjects () {
+        const container = document.querySelector('.my-projects');
+        container.innerHTML = '';
+        lookForLocalData();
         // render local storage each time I create or delete a new project //
 }
 
     function createProject (name) {
-        const project = new Project(name) 
+        const project = new Project(name)
         saveLocalProject(project);
     }
 
-    export {createAddSection, createProject};
+    export { renderProjects, createAddSection, createProject};
    
