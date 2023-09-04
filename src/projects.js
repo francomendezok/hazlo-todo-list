@@ -1,5 +1,5 @@
 import { saveLocalProject, saveLocalTask, lookForLocalData, sortContainer } from "./localStorage";
-
+import { createMainContent, printMain } from "./printMain";
 
 class Project {
     constructor (name) {
@@ -17,6 +17,7 @@ class Project {
         const accept = document.createElement('button');
         const decline = document.createElement('button');
         const buttonsDiv = document.createElement('div');
+        console.log(blank);
 
         blank.appendChild(input);
         blank.appendChild(buttonsDiv)
@@ -29,6 +30,7 @@ class Project {
         input.placeholder = 'Enter Project Name';
         input.type = 'text';
         input.maxLength = 15;
+        input.id = 'input';
         blank.id = 'show-add';
         accept.id = 'accept';
         decline.id = 'decline';
@@ -54,18 +56,26 @@ class Project {
         decline.addEventListener('click', hideCreateSection);
     }
 
+    function createEditSection () {
+        
+    }
+
+    function getLocalInfo () {
+
+    }
+
     function hideCreateSection () {
         const blank = document.querySelector('.blank');
         blank.innerHTML = '';
         blank.removeAttribute('id');
     }
 
-
-
     function renderProjects () {
         const container = document.querySelector('.my-projects');
         container.innerHTML = '';
         lookForLocalData();
+        const projects = document.querySelectorAll('.div-project');
+        projects.forEach(project => project.addEventListener('click', getProjectInfo)); 
         // render local storage each time I create or delete a new project //
 }
 
@@ -74,5 +84,14 @@ class Project {
         saveLocalProject(project);
     }
 
-    export { renderProjects, createAddSection, createProject};
+    function getProjectInfo (event) {
+        const text = event.target.textContent;
+        createMainContent(text);
+        printMain(event); 
+      }
+
+
+
+
+    export { getProjectInfo, renderProjects, createAddSection, createProject};
    

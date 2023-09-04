@@ -1,7 +1,7 @@
 import printSidebar from "./hideMenu";
 import { defaultMain, printMain } from "./printMain";
 import darkMode from "./darkMode";
-import { renderProjects, createAddSection, createProject } from "./projects";
+import { renderProjects, createAddSection, createProject, getProjectInfo } from "./projects";
 import { createDivProject, getLocal, saveLocalProject, saveLocalTask, lookForLocalData } from "./localStorage";
 
 const switcher = document.getElementById('switch');
@@ -15,16 +15,8 @@ switcher.addEventListener('click', darkMode);
 addProject.addEventListener('click', createAddSection);
 document.addEventListener('DOMContentLoaded', () => {
     defaultMain();
-    renderProjects();
-    const projects = document.querySelectorAll('.div-project');
-    eventProject(projects);
+    renderProjects();    
 });
-
-function eventProject (projects) {
-    projects.forEach(project => project.addEventListener('click', console.log('YES')));      
-}
-
-// FIX EVENT LISTENER PROJECTS //
 
 
 

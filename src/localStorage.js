@@ -1,3 +1,5 @@
+import { getProjectInfo } from "./projects";
+
 function saveLocalTask () {
 
 }
@@ -27,7 +29,7 @@ function createDivProject(data) {
   const edit = document.createElement('img');
   const pContainer = document.createElement('div');
 
-  edit.addEventListener('click', editProject);
+  // edit.addEventListener('click', getProjectInfo);
   menu.src = "./images/menu.png";
   edit.src = "./images/edit.png";
 
@@ -37,6 +39,11 @@ function createDivProject(data) {
   pContainer.classList.add('p-container');
 
   p.innerHTML = data.name;
+  p.dataset.id = data.id;
+  div.id = data.id;
+  div.dataset.idContainer = data.id;
+  container.dataset.id = data.id;
+  pContainer.dataset.id = data.id;
   container.appendChild(div);
   div.appendChild(menu);
   div.appendChild(pContainer)
@@ -61,9 +68,7 @@ function lookForLocalData() {
   });
 }
 
-function editProject () {
-  console.log('I Will edit this project');
-}
 
 
-export { createDivProject, editProject, saveLocalProject, lookForLocalData}
+
+export { createDivProject, saveLocalProject, lookForLocalData}
