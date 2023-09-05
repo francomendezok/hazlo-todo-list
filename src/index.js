@@ -17,13 +17,3 @@ document.addEventListener('DOMContentLoaded', () => {
     defaultMain();
     renderProjects();    
 });
-
-
-
-
-// TODO
-// 1. Add Project (Factorie Function or Classes)
-// 2. Create Tasks (Factorie Function or Classes, localStorage, date-fns library)
-// 3. Print Main
-//
-//

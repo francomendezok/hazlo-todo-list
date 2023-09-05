@@ -66,6 +66,8 @@ function lookForLocalData() {
   projects.forEach((project) => {
     createDivProject(project);
   });
+
+  return projects;
 }
 
 

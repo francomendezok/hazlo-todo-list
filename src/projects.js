@@ -17,8 +17,8 @@ class Project {
         const accept = document.createElement('button');
         const decline = document.createElement('button');
         const buttonsDiv = document.createElement('div');
-        console.log(blank);
 
+        if (blank.innerHTML !== '') return;
         blank.appendChild(input);
         blank.appendChild(buttonsDiv)
         buttonsDiv.appendChild(accept);
