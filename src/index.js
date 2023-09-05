@@ -15,5 +15,7 @@ switcher.addEventListener('click', darkMode);
 addProject.addEventListener('click', createAddSection);
 document.addEventListener('DOMContentLoaded', () => {
     defaultMain();
-    renderProjects();    
+    renderProjects(); 
 });
+
+

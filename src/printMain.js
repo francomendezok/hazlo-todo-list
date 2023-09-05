@@ -1,5 +1,5 @@
 import { lookForLocalData, getLocal } from "./localStorage";
-import { getProjectInfo } from "./projects";
+import { Task, getProjectInfo } from "./projects";
 import { formatDistance, subDays } from 'date-fns'
 
 
@@ -49,6 +49,7 @@ function createTaskForm() {
         
         input.type = inputType;
         input.name = inputName;
+        input.id = inputName;
         
         if (isRequired) {
             input.required = true;
@@ -57,6 +58,7 @@ function createTaskForm() {
         wrapper.appendChild(input);
 
         wrapper.classList.add('wrapper');
+
         return wrapper;
     }
 
@@ -88,7 +90,7 @@ function createTaskForm() {
 
     // Crear el botón "Add"
     const addButton = document.createElement('button');
-    addButton.type = 'button';
+    addButton.type = 'submit';
     addButton.textContent = 'Add';
     addButton.classList.add('accept');
 
@@ -109,13 +111,51 @@ function createTaskForm() {
 
     addButton.addEventListener('click', addTask)
     cancelButton.addEventListener('click', hideTaskSection)
+    
     return form;
 }
 
-function addTask () {
+function addTask (event) {
+    event.preventDefault();
     let data = getLocal();
-    console.log(data);
-// Acces Data, add tasks
+    const inputTitle = document.getElementById('title');
+    const inputDescription = document.getElementById('description');
+    const inputDate = document.getElementById('date');
+    const inputFavourite = document.getElementById('favourite');
+    const inputImportant = document.getElementById('important');
+    const project = data.dataset.name;
+    const local = data.dataset.local;
+    const nameTask = `${project} ${local}`;
+
+    const title = inputTitle.value;
+    const description = inputDescription.value;
+    const date = inputDate.value;
+    const favourite = inputFavourite.checked;
+    const important = inputImportant.checked;
+
+    const savedProject = localStorage.getItem(local);
+    const saved = JSON.parse(savedProject);
+
+    if (title && description && date) {
+        const newTask = new Task(project, title, description, date, favourite, important);
+    
+        // Obtener las tareas existentes del Local Storage (si las hay)
+        const myProject = JSON.parse(localStorage.getItem(local));
+        console.log(myProject);
+        // Agregar la nueva tarea al arreglo
+        myProject.tasks.push(newTask);
+    
+        // Modifico la info, Guardar las tareas actualizadas en el Local Storage
+        localStorage.setItem(local, JSON.stringify(myProject));
+        hideTaskSection();
+        createMainContent(data)
+    }
+    else if (title && description && !date) alert('Select date');
+    else if (title && !description && date) alert('Add Description');
+    else if (!title && description && date) alert('Create a title');
+    else alert('Please Complete Title, Description and Date');
+
+
 }
 
 function hideTaskSection() {
@@ -124,12 +164,11 @@ function hideTaskSection() {
     container.id = 'no-show';
 }
 
+function renderTasks () {
 
+}
 
-
- 
-function createMainDescription (text) {
-    if (!findWord(text)) {
+function renderAddTaskSection () {
         const div = document.createElement('div');
         const img = document.createElement('img');
         const h3 = document.createElement('h3');
@@ -144,6 +183,23 @@ function createMainDescription (text) {
         container.appendChild(h3)
         div.appendChild(container);
         container.addEventListener('click', showTaskInput);
+        return div;
+}
+
+function getProjectfromLocal (local) {
+    const jsonString = localStorage.getItem(local);
+    const project = JSON.parse(jsonString);
+    return project.tasks;
+}
+ 
+function createMainDescription (text) {
+    if (!findWord(text)) {
+        const info = text.dataset.local;
+        const div = renderAddTaskSection();
+        const tasks = getProjectfromLocal(info);
+        console.log(tasks);
+        // if (tasks.length) console.log(tasks);
+        // div.appendChild(tasks)
         return div;
     }
     else {

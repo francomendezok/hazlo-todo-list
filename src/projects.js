@@ -6,14 +6,7 @@ class Project {
         this.name = name;
         this.tasks = []
     }
-    addTask(task, title, description, date, favourite, important) {
-        task = {
-            title,
-            description,
-            date,
-            favourite,
-            important
-        }
+    addNewTask(task) {
         this.tasks.push(task);
       }
 
@@ -21,6 +14,27 @@ class Project {
 
     }   
     }
+class Task {
+    constructor(project, title, description, date, favourite, important) {
+            this.project = project;
+            this.title = title;
+            this.description = description;
+            this.date = date;
+            this.favourite = favourite;
+            this.important = important;
+    }
+    
+    modifyTask(project, title, description, date, favourite, important) {
+            this.project = project;
+            this.title = title;
+            this.description = description;
+            this.date = date;
+            this.favourite = favourite;
+            this.important = important;
+    }
+}
+
+
 
     function createAddSection () {
         const blank = document.querySelector('.blank');
@@ -104,5 +118,5 @@ class Project {
 
 
 
-    export { getProjectInfo, renderProjects, createAddSection, createProject};
+    export { Task, getProjectInfo, renderProjects, createAddSection, createProject};
    
