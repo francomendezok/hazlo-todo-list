@@ -1,4 +1,4 @@
-import { lookForLocalData } from "./localStorage";
+import { lookForLocalData, getLocal } from "./localStorage";
 import { getProjectInfo } from "./projects";
 import { formatDistance, subDays } from 'date-fns'
 
@@ -9,15 +9,20 @@ function createMainContent (text) {
     const main = document.querySelector('.main')
     const blank = document.createElement('div');
     blank.id = 'no-show';
-
+    
     main.innerHTML = '';
     div.classList.add('inner-text')
-    h1.textContent = text;
+    h1.textContent = text.textContent || text;
     h1.id = 'h1-main';
     div.appendChild(h1)
     main.appendChild(div);
     main.appendChild(blank);
     main.appendChild(createMainDescription(text));
+    if (!findWord(text)) {
+            h1.dataset.name = text.dataset.name;
+            h1.dataset.id = text.dataset.id;
+            h1.dataset.local = text.dataset.local;
+    };
     return main;
 }
 
@@ -29,7 +34,9 @@ function showTaskInput() {
 }
 
 function createTaskForm() {
-    // Crear el formulario
+    const myForm = document.getElementById('task-form');
+    const h1Main = document.getElementById('h1-main');
+    if (myForm) return;
     const form = document.createElement('form');
     form.id = 'task-form';
 
@@ -100,10 +107,22 @@ function createTaskForm() {
     form.appendChild(inputTaskWrapper);
     form.appendChild(priorityTaskWrapper);
 
+    addButton.addEventListener('click', addTask)
+    cancelButton.addEventListener('click', hideTaskSection)
     return form;
 }
 
+function addTask () {
+    let data = getLocal();
+    console.log(data);
+// Acces Data, add tasks
+}
 
+function hideTaskSection() {
+    const container = document.getElementById('yes-show');
+    container.innerHTML = '';
+    container.id = 'no-show';
+}
 
 
 
@@ -141,9 +160,7 @@ function defaultMain () {
     createMainContent('All');
 }
 
-function colorSelected (event) {
-    
-}
+
 
 function findWord(optionalParam) {
     const h1 = document.getElementById('h1-main');

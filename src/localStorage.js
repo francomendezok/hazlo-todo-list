@@ -16,9 +16,9 @@ function saveLocalProject(project) {
   localStorage.setItem("projectCounter", projectCounter.toString());
 }
 
-function getLocal(key) {
-  const item = localStorage.getItem(key);
-  return item;
+function getLocal() {
+  const data = document.getElementById('h1-main');
+  return data;
 }
 
 function createDivProject(data) {
@@ -37,13 +37,27 @@ function createDivProject(data) {
   edit.classList.add('icon-div');
   div.classList.add('div-project');
   pContainer.classList.add('p-container');
+  
+  
+  div.dataset.id = data.id;
+  div.dataset.name = data.name;
+  div.dataset.local = `project_${data.id}`;
+  pContainer.dataset.id = data.id;
+  pContainer.dataset.name = data.name;
+  pContainer.dataset.local = `project_${data.id}`;
+  p.dataset.id = data.id;
+  p.dataset.name = data.name;
+  p.dataset.local = `project_${data.id}`;
+  menu.dataset.id = data.id;
+  menu.dataset.name = data.name;
+  menu.dataset.local = `project_${data.id}`;
+  edit.dataset.id = data.id;
+  edit.dataset.name = data.name;
+  edit.dataset.local = `project_${data.id}`;
+
 
   p.innerHTML = data.name;
-  p.dataset.id = data.id;
   div.id = data.id;
-  div.dataset.idContainer = data.id;
-  container.dataset.id = data.id;
-  pContainer.dataset.id = data.id;
   container.appendChild(div);
   div.appendChild(menu);
   div.appendChild(pContainer)
@@ -60,17 +74,17 @@ function lookForLocalData() {
       projects.push(data);
     }
   }
-
   projects.sort((a, b) => b.id - a.id);
-
+  
   projects.forEach((project) => {
     createDivProject(project);
   });
 
-  return projects;
+
+  return projects;  
 }
 
 
 
 
-export { createDivProject, saveLocalProject, lookForLocalData}
+export { getLocal, createDivProject, saveLocalProject, lookForLocalData}

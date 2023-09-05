@@ -6,9 +6,20 @@ class Project {
         this.name = name;
         this.tasks = []
     }
-    addTask(task) {
+    addTask(task, title, description, date, favourite, important) {
+        task = {
+            title,
+            description,
+            date,
+            favourite,
+            important
+        }
         this.tasks.push(task);
-      }    
+      }
+
+    modifyTask(task, title, description, date, favourite, important) {
+
+    }   
     }
 
     function createAddSection () {
@@ -85,10 +96,10 @@ class Project {
     }
 
     function getProjectInfo (event) {
-        const text = event.target.textContent;
-        createMainContent(text);
+        const info = event.target;
+        createMainContent(info);
         printMain(event); 
-      }
+}
 
 
 
