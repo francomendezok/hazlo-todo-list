@@ -13,7 +13,7 @@ class Project {
     modifyTask(task, title, description, date, favourite, important) {
 
     }   
-    }
+}
 class Task {
     constructor(project, title, description, date, favourite, important) {
             this.project = project;
@@ -22,15 +22,17 @@ class Task {
             this.date = date;
             this.favourite = favourite;
             this.important = important;
+            this.completed = false;
     }
     
-    modifyTask(project, title, description, date, favourite, important) {
+    modifyTask(project, title, description, date, favourite, important, completed) {
             this.project = project;
             this.title = title;
             this.description = description;
             this.date = date;
             this.favourite = favourite;
             this.important = important;
+            this.completed = completed;
     }
 }
 

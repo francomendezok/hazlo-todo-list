@@ -84,7 +84,19 @@ function lookForLocalData() {
   return projects;  
 }
 
+function getAllLocalData() {
+  const projects = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key.includes('project') && !key.includes('projectCounter')) {
+      const data = JSON.parse(localStorage.getItem(key));
+      projects.push(data);
+    }
+  }
+  return projects;
+}
 
 
 
-export { getLocal, createDivProject, saveLocalProject, lookForLocalData}
+
+export {  getAllLocalData, getLocal, createDivProject, saveLocalProject, lookForLocalData}

@@ -1,6 +1,7 @@
-import { lookForLocalData, getLocal } from "./localStorage";
+import { getAllLocalData, lookForLocalData, getLocal } from "./localStorage";
 import { Task, getProjectInfo } from "./projects";
 import { formatDistance, subDays } from 'date-fns'
+import { All, Today, Week, Important, Favourite, Completed } from './timePeriod'; 
 
 
 function createMainContent (text) {
@@ -17,6 +18,7 @@ function createMainContent (text) {
     div.appendChild(h1)
     main.appendChild(div);
     main.appendChild(blank);
+    console.log(text);
     main.appendChild(createMainDescription(text));
     if (!findWord(text)) {
             h1.dataset.name = text.dataset.name;
@@ -164,8 +166,78 @@ function hideTaskSection() {
     container.id = 'no-show';
 }
 
-function renderTasks () {
+function createDivTask (task) {
+    const div = document.createElement('div');
+    const leftContainer = document.createElement('div');
+    const radio = document.createElement('input');
+    const radioBox = document.createElement('div');
+    const textBox = document.createElement('div');
+    const title = document.createElement('h3');
+    const description = document.createElement('p');
+    const rightContainer = document.createElement('div');
+    const date = document.createElement('p');
+    const favourite = document.createElement('img'); 
+    const important = document.createElement('img'); 
+    const edit = document.createElement('img');
+    
+    title.textContent = task.title;
+    description.textContent = task.description;
+    radio.type = "radio";
+    date.textContent = task.date;
+    if (task.favourite) {
+        favourite.src = './images/favorites.png';
+    }
+    else {
+        favourite.src = './images/empty-star.png';
+    }
+    if (task.important) {
+        important.src = './images/important.png';
+    }
+    else {
+        important.src = './images/black-important.png';
+    }
+    edit.src = './images/edit-pencil.png';
+    
+    favourite.classList.add('task-img');
+    important.classList.add('task-img');
+    edit.classList.add('task-img');
+    div.classList.add('div-has-task'); 
+    leftContainer.classList.add('left-container');
+    rightContainer.classList.add('right-container');
+    textBox.classList.add('text-box');
+    radioBox.classList.add('radio-box');
+    title.classList.add('task-title');
+    description.classList.add('task-description');
+    date.classList.add('task-date');
 
+    textBox.appendChild(title);
+    textBox.appendChild(description);
+    radioBox.appendChild(radio)
+
+    leftContainer.appendChild(radioBox)
+    leftContainer.appendChild(textBox);
+
+    rightContainer.appendChild(date);
+    rightContainer.appendChild(favourite);
+    rightContainer.appendChild(important);
+    rightContainer.appendChild(edit);
+
+    div.appendChild(leftContainer);
+    div.appendChild(rightContainer);
+    return div;
+}
+
+function renderTasks (tasks) {
+    const container = document.createElement('div');
+    const main = document.querySelector('.main');
+    container.id = 'tasks-container';
+    
+    for (let i = 0; i < tasks.length; i++) {
+        const divTask = createDivTask(tasks[i]);
+        container.appendChild(divTask);
+    }
+    main.appendChild(container);
+    return main;
 }
 
 function renderAddTaskSection () {
@@ -197,10 +269,11 @@ function createMainDescription (text) {
         const info = text.dataset.local;
         const div = renderAddTaskSection();
         const tasks = getProjectfromLocal(info);
-        console.log(tasks);
-        // if (tasks.length) console.log(tasks);
-        // div.appendChild(tasks)
-        return div;
+        if (tasks.length) {
+            renderTasks(tasks);
+            return div;
+        }
+        else return div;
     }
     else {
         const h3 = document.createElement('h3');
@@ -231,12 +304,28 @@ function findWord(optionalParam) {
     return homeTexts.some(word => word === h1Text);
 }
 
+function getTimePeriod (name) {
+    let data = getAllLocalData ();
+    const classMap = {
+        'All': All,
+        'Today': Today,
+        'Week': Week,
+        'Important': Important,
+        'Favourites': Favourite,
+        'Completed': Completed
+      };
+    const section = new (classMap[name])();
+    const selectedTasks = section.printTimePeriodFromLocal(data);
+    renderTasks(selectedTasks);
+    console.log(selectedTasks);    
+    return section;  
+}
 
 function printMain (event) {
-   
     const parent = event.target.closest('.time-period');
 
     if (event.target.classList[0] === 'time-period') {
+        const data = getTimePeriod(event.target.dataset.name);
         const name = event.target.dataset.name;
         createMainContent(name);
         const categories = document.querySelectorAll('.time-period');
@@ -247,6 +336,9 @@ function printMain (event) {
         otherDivs.forEach(otherDiv => otherDiv.classList.remove('clicked-project'));
     }
     else if (event.target.classList[0] === 'div-project') {
+        // const name = event.target.dataset.name;
+        // createMainContent(name);
+        console.log('I need to work');
         const categories = document.querySelectorAll('.div-project');
         categories.forEach(cat => cat.classList.remove('clicked-project')); 
         event.target.classList.add('clicked-project')
@@ -256,6 +348,7 @@ function printMain (event) {
     }
 
     else if (event.target.closest('.time-period')) {
+        const data = getTimePeriod(event.target.dataset.name);
         const name = event.target.dataset.name;
         createMainContent(name);
         const categories = document.querySelectorAll('.time-period');
@@ -267,6 +360,7 @@ function printMain (event) {
     }
 
     else if (!findWord() && event.target.textContent !== "") {
+
         const categories = document.querySelectorAll('.time-period');
         categories.forEach(cat => cat.classList.remove('clicked')); 
     
@@ -274,7 +368,6 @@ function printMain (event) {
         
         const div = document.getElementById(myId);
         const container = document.getElementById('show-my-projects');
-        
         const otherDivs = container.querySelectorAll('.div-project');
     
         otherDivs.forEach(otherDiv => otherDiv.classList.remove('clicked-project'));
@@ -287,4 +380,4 @@ function printMain (event) {
 }
 
 
-export {createMainContent, defaultMain, printMain};
+export {renderTasks, createMainContent, defaultMain, printMain};
