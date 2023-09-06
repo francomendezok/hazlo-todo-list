@@ -439,10 +439,11 @@ input[type="checkbox"] {
     grid-auto-rows: repeat(auto-fill, minmax(70px, 1fr));
     justify-content: center;
     align-items: flex-start;
+    overflow-y: scroll;    
 }
 
 .div-has-task {
-    width: 100%;
+    width: 99%;
     height: 100%;
     border: 1px solid lightgray;
     border-radius: 6px;

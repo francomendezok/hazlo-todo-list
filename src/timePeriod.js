@@ -5,7 +5,7 @@ function getTodayDay() {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0'); 
     const day = String(date.getDate()).padStart(2, '0');
-    return `${year}/${month}/${day}`;
+    return `${year}-${month}-${day}`;
   }
 function getWeekDates() {
     const weekDates = [];
@@ -28,8 +28,14 @@ class All {
     printTimePeriodFromLocal(data) {
         let selectedTasks = [];
         for (let i = 0; i < data.length; i++) {
-            selectedTasks.push(data[i]);
+            if (data[i].tasks.length) {
+                const tasks = data[i].tasks;
+                for (let i = 0; i < tasks.length; i++) {
+                        selectedTasks.push(tasks[i]);
+                }
+            }
         }
+        console.log(selectedTasks);
         return selectedTasks;
     }
 }
@@ -43,9 +49,17 @@ class Today {
         let selectedTasks = [];
         const today = getTodayDay();
         for (let i = 0; i < data.length; i++) {
-            if (data[i].tasks.date === today)
-            selectedTasks.push(data[i]);
+            if (data[i].tasks.length) {
+                const tasks = data[i].tasks;
+                for (let i = 0; i < tasks.length; i++) {
+                    const dateToCheck = tasks[i].date;
+                    if (today === dateToCheck) {
+                        selectedTasks.push(tasks[i]);
+                    }
+                }
+            }
         }
+        console.log(selectedTasks);
         return selectedTasks;
     }
 }
@@ -59,10 +73,18 @@ class Week {
         let selectedTasks = [];
         const week = getWeekDates();
         for (let i = 0; i < data.length; i++) {
-            if (week.includes(data[i].tasks.date))
-            selectedTasks.push(data[i]);
+            if (data[i].tasks.length) {
+                const tasks = data[i].tasks;
+                for (let i = 0; i < tasks.length; i++) {
+                    const dateToCheck = tasks[i].date;
+                    if (week.includes(dateToCheck)) {
+                        selectedTasks.push(tasks[i]);
+                    }
+                }
+            }
         }
-    return selectedTasks;
+        console.log(selectedTasks);
+        return selectedTasks;
     }
 }
 
@@ -77,12 +99,14 @@ class Important {
             if (data[i].tasks.length) {
                 const tasks = data[i].tasks;
                 for (let i = 0; i < tasks.length; i++) {
-                    if (tasks[i].important) {
-                        selectedTasks.push(data[i]);
+                    const important = tasks[i].important;
+                    if (important) {
+                        selectedTasks.push(tasks[i]);
                     }
                 }
             }
         }
+        console.log(selectedTasks);
         return selectedTasks;
     }
 }
@@ -98,12 +122,14 @@ class Favourite {
             if (data[i].tasks.length) {
                 const tasks = data[i].tasks;
                 for (let i = 0; i < tasks.length; i++) {
-                    if (tasks[i].favourite) {
-                        selectedTasks.push(data[i]);
+                    const favourite = tasks[i].favourite;
+                    if (favourite) {
+                        selectedTasks.push(tasks[i]);
                     }
                 }
             }
         }
+        console.log(selectedTasks);
         return selectedTasks;
     }
 }
@@ -119,16 +145,16 @@ class Completed {
             if (data[i].tasks.length) {
                 const tasks = data[i].tasks;
                 for (let i = 0; i < tasks.length; i++) {
-                    if (tasks[i].completed) {
-                        selectedTasks.push(data[i]);
+                    const completed = tasks[i].completed;
+                    if (completed) {
+                        selectedTasks.push(tasks[i]);
                     }
                 }
             }
         }
+        console.log(selectedTasks);
         return selectedTasks;
     }
 }
-// Logic Important, Favourite and Completed || Logic All, Today, Week// 
-// Create Logic to Check All of the Same Type //
 
 export {All, Today, Week, Important, Favourite, Completed};

@@ -15,14 +15,14 @@ class Project {
     }   
 }
 class Task {
-    constructor(project, title, description, date, favourite, important) {
+    constructor(project, title, description, date, favourite, important, completed) {
             this.project = project;
             this.title = title;
             this.description = description;
             this.date = date;
             this.favourite = favourite;
             this.important = important;
-            this.completed = false;
+            this.completed = completed;
     }
     
     modifyTask(project, title, description, date, favourite, important, completed) {

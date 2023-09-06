@@ -1,8 +1,5 @@
 import { getProjectInfo } from "./projects";
 
-function saveLocalTask () {
-
-}
 
 function saveLocalProject(project) {
   let projectCounter = parseInt(localStorage.getItem("projectCounter")) || 0;

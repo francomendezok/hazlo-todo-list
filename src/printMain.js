@@ -18,7 +18,6 @@ function createMainContent (text) {
     div.appendChild(h1)
     main.appendChild(div);
     main.appendChild(blank);
-    console.log(text);
     main.appendChild(createMainDescription(text));
     if (!findWord(text)) {
             h1.dataset.name = text.dataset.name;
@@ -134,16 +133,16 @@ function addTask (event) {
     const date = inputDate.value;
     const favourite = inputFavourite.checked;
     const important = inputImportant.checked;
+    const completed = false;
 
     const savedProject = localStorage.getItem(local);
     const saved = JSON.parse(savedProject);
 
     if (title && description && date) {
-        const newTask = new Task(project, title, description, date, favourite, important);
+        const newTask = new Task(project, title, description, date, favourite, important, completed);
     
         // Obtener las tareas existentes del Local Storage (si las hay)
         const myProject = JSON.parse(localStorage.getItem(local));
-        console.log(myProject);
         // Agregar la nueva tarea al arreglo
         myProject.tasks.push(newTask);
     
@@ -273,8 +272,19 @@ function createMainDescription (text) {
             renderTasks(tasks);
             return div;
         }
-        else return div;
+         return div;
     }
+
+    if (findWord(text)) {
+        const div = renderAddTaskSection();
+        const tasks = getTimePeriod(text);
+        if (tasks.length) {
+            renderTasks(tasks);
+            return div;
+        }
+         return div;
+    }
+
     else {
         const h3 = document.createElement('h3');
         h3.textContent = 'No Tasks';
@@ -288,8 +298,6 @@ function defaultMain () {
     allDiv.classList.add('clicked');
     createMainContent('All');
 }
-
-
 
 function findWord(optionalParam) {
     const h1 = document.getElementById('h1-main');
@@ -316,9 +324,12 @@ function getTimePeriod (name) {
       };
     const section = new (classMap[name])();
     const selectedTasks = section.printTimePeriodFromLocal(data);
-    renderTasks(selectedTasks);
-    console.log(selectedTasks);    
-    return section;  
+
+    // if (selectedTasks.length) {
+    //     //
+    // }
+        
+    return selectedTasks;  
 }
 
 function printMain (event) {
@@ -336,9 +347,6 @@ function printMain (event) {
         otherDivs.forEach(otherDiv => otherDiv.classList.remove('clicked-project'));
     }
     else if (event.target.classList[0] === 'div-project') {
-        // const name = event.target.dataset.name;
-        // createMainContent(name);
-        console.log('I need to work');
         const categories = document.querySelectorAll('.div-project');
         categories.forEach(cat => cat.classList.remove('clicked-project')); 
         event.target.classList.add('clicked-project')
