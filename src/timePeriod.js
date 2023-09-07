@@ -35,7 +35,6 @@ class All {
                 }
             }
         }
-        console.log(selectedTasks);
         return selectedTasks;
     }
 }
@@ -59,7 +58,6 @@ class Today {
                 }
             }
         }
-        console.log(selectedTasks);
         return selectedTasks;
     }
 }
@@ -83,7 +81,6 @@ class Week {
                 }
             }
         }
-        console.log(selectedTasks);
         return selectedTasks;
     }
 }
@@ -106,7 +103,6 @@ class Important {
                 }
             }
         }
-        console.log(selectedTasks);
         return selectedTasks;
     }
 }
@@ -129,7 +125,6 @@ class Favourite {
                 }
             }
         }
-        console.log(selectedTasks);
         return selectedTasks;
     }
 }
@@ -152,7 +147,6 @@ class Completed {
                 }
             }
         }
-        console.log(selectedTasks);
         return selectedTasks;
     }
 }

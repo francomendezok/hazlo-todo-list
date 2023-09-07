@@ -228,8 +228,9 @@ input {
     flex-direction: column;
     color: white;
     height:55%;
-    width: 90%;
+    width: 100%;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 #buttons-div {
@@ -439,7 +440,8 @@ input[type="checkbox"] {
     grid-auto-rows: repeat(auto-fill, minmax(70px, 1fr));
     justify-content: center;
     align-items: flex-start;
-    overflow-y: scroll;    
+    overflow-y: scroll;
+    overflow-x: hidden;    
 }
 
 .div-has-task {
@@ -518,4 +520,31 @@ input[type="radio"] {
     justify-content: center;
     align-items: center;
     padding: 2%;
+}
+
+#blank-edit-project {
+    display: none;
+}
+
+#show-edit-project {
+    display: flex;
+}
+
+.div-edit-project {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+}
+
+.p-edit-project {
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.p-edit-project:hover {
+    background-color: #fff;
+    cursor: pointer;
 }

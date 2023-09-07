@@ -1,5 +1,5 @@
 import { getAllLocalData, lookForLocalData, getLocal } from "./localStorage";
-import { Task, getProjectInfo } from "./projects";
+import { createDivEditTask, Task, getProjectInfo } from "./projects";
 import { formatDistance, subDays } from 'date-fns'
 import { All, Today, Week, Important, Favourite, Completed } from './timePeriod'; 
 
@@ -10,10 +10,10 @@ function createMainContent (text) {
     const main = document.querySelector('.main')
     const blank = document.createElement('div');
     blank.id = 'no-show';
-    
+
     main.innerHTML = '';
     div.classList.add('inner-text')
-    h1.textContent = text.textContent || text;
+    h1.textContent = text;
     h1.id = 'h1-main';
     div.appendChild(h1)
     main.appendChild(div);
@@ -23,6 +23,7 @@ function createMainContent (text) {
             h1.dataset.name = text.dataset.name;
             h1.dataset.id = text.dataset.id;
             h1.dataset.local = text.dataset.local;
+            h1.textContent = text.dataset.name;
     };
     return main;
 }
@@ -200,6 +201,7 @@ function createDivTask (task) {
     favourite.classList.add('task-img');
     important.classList.add('task-img');
     edit.classList.add('task-img');
+    edit.classList.add('pencils');
     div.classList.add('div-has-task'); 
     leftContainer.classList.add('left-container');
     rightContainer.classList.add('right-container');
@@ -208,6 +210,9 @@ function createDivTask (task) {
     title.classList.add('task-title');
     description.classList.add('task-description');
     date.classList.add('task-date');
+
+    edit.addEventListener('click', createDivEditTask);
+    edit.dataset.type = 'task';
 
     textBox.appendChild(title);
     textBox.appendChild(description);
@@ -334,9 +339,7 @@ function getTimePeriod (name) {
 
 function printMain (event) {
     const parent = event.target.closest('.time-period');
-
     if (event.target.classList[0] === 'time-period') {
-        const data = getTimePeriod(event.target.dataset.name);
         const name = event.target.dataset.name;
         createMainContent(name);
         const categories = document.querySelectorAll('.time-period');
@@ -356,7 +359,6 @@ function printMain (event) {
     }
 
     else if (event.target.closest('.time-period')) {
-        const data = getTimePeriod(event.target.dataset.name);
         const name = event.target.dataset.name;
         createMainContent(name);
         const categories = document.querySelectorAll('.time-period');
@@ -367,8 +369,7 @@ function printMain (event) {
         otherDivs.forEach(otherDiv => otherDiv.classList.remove('clicked-project'));
     }
 
-    else if (!findWord() && event.target.textContent !== "") {
-
+    else if (!findWord()) {
         const categories = document.querySelectorAll('.time-period');
         categories.forEach(cat => cat.classList.remove('clicked')); 
     

@@ -1,4 +1,4 @@
-import { getProjectInfo } from "./projects";
+import { createDivEditProject, getProjectInfo } from "./projects";
 
 
 function saveLocalProject(project) {
@@ -26,16 +26,18 @@ function createDivProject(data) {
   const edit = document.createElement('img');
   const pContainer = document.createElement('div');
 
-  // edit.addEventListener('click', getProjectInfo);
   menu.src = "./images/menu.png";
   edit.src = "./images/edit.png";
 
   menu.classList.add('icon-div');
   edit.classList.add('icon-div');
+  edit.classList.add('edit-dots');
   div.classList.add('div-project');
   pContainer.classList.add('p-container');
   
-  
+  edit.addEventListener('click', createDivEditProject);
+  edit.dataset.type = 'project';
+
   div.dataset.id = data.id;
   div.dataset.name = data.name;
   div.dataset.local = `project_${data.id}`;

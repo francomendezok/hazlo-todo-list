@@ -83,11 +83,93 @@ class Task {
         decline.addEventListener('click', hideCreateSection);
     }
 
-    function createEditSection () {
+    function createDivEditProject (event) {
+        const data = event.target;
+        const div = document.createElement('div');
+        const renameProject = document.createElement('p');
+        const deleteProject = document.createElement('p');
+        const blank = document.getElementById('blank-edit-project');
+
+        blank.id = 'show-edit-project';
+        blank.innerHTML = '';
+        renameProject.textContent = 'Rename';
+        deleteProject.textContent = 'Delete';
+        renameProject.id = 'rename-project';
+        deleteProject.id = 'delete-project';
+        renameProject.dataset.action = 'rename';
+        deleteProject.dataset.action = 'delete';
         
+        renameProject.classList.add('p-edit-project');
+        deleteProject.classList.add('p-edit-project');
+        div.classList.add('div-edit-project');
+        blank.appendChild(div);
+        div.appendChild(renameProject);
+        div.appendChild(deleteProject);
+
+        renameProject.addEventListener('click', () => {
+            edit(data, 'Project', 'Modify');
+        });
+        deleteProject.addEventListener('click', () => {
+            edit(data, 'Project', 'Delete');
+        });
     }
 
-    function getLocalInfo () {
+    function createDivEditTask () {
+        console.log('edit task');
+
+    }
+
+    function edit (data, type, action) {
+        if (type === 'Project') {
+            if (action === "Delete") {
+                removeData(data, 'Project');
+                renderProjects();
+            }
+            if (action === "Modify") {
+                const dataId = data.dataset.id;
+                const p = document.querySelector(`p[data-id="${dataId}"]`);
+                // Prompt the user for the new name[Input, Button Save, Button Cancel]
+                // Set datasets
+                // CreateMain() so it prints H1
+                projectEditLocalData(data, input);
+                renderProjects();
+            }
+        }
+
+        if (type === 'Task') {
+            if (action === "Delete") {
+
+            }
+            if (action === "Modify") {
+                console.log('Modify');
+                console.log(data);
+            }
+        }
+
+    }
+
+    function removeData (data, type) {
+        if (type === "Project") {
+            const deletedProject = data.dataset.local;
+            localStorage.removeItem(deletedProject);    
+            const blank = document.getElementById('show-edit-project');
+            blank.id = 'blank-edit-project';
+        }
+
+        if (type === "Task") {
+
+        }
+    }
+
+    function projectEditLocalData (name, newName) {
+        const local = name.dataset.local;
+    const itemEnLocalStorage = JSON.parse(localStorage.getItem(local));
+
+    itemEnLocalStorage.name = newName;
+
+  
+    localStorage.setItem(local, JSON.stringify(itemEnLocalStorage));
+
 
     }
 
@@ -103,7 +185,6 @@ class Task {
         lookForLocalData();
         const projects = document.querySelectorAll('.div-project');
         projects.forEach(project => project.addEventListener('click', getProjectInfo)); 
-        // render local storage each time I create or delete a new project //
 }
 
     function createProject (name) {
@@ -120,5 +201,5 @@ class Task {
 
 
 
-    export { Task, getProjectInfo, renderProjects, createAddSection, createProject};
+    export { createDivEditTask, createDivEditProject, Task, getProjectInfo, renderProjects, createAddSection, createProject};
    
