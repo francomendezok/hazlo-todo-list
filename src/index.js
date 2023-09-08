@@ -15,7 +15,7 @@ switcher.addEventListener('click', darkMode);
 addProject.addEventListener('click', createAddSection);
 window.addEventListener('click', (event) => {
     const projectEditSection = document.getElementById('show-edit-project');
-    if (event.target.classList.contains('edit-dots')) console.log('No edit');
+    if (event.target.classList.contains('edit-dots')) return;
     else if (projectEditSection) {
         projectEditSection.id = 'blank-edit-project';
     }

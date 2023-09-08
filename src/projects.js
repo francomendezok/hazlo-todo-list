@@ -1,5 +1,5 @@
 import { saveLocalProject, saveLocalTask, lookForLocalData, sortContainer } from "./localStorage";
-import { createMainContent, printMain } from "./printMain";
+import { defaultMain, createMainDescription, createMainContent, printMain } from "./printMain";
 
 class Project {
     constructor (name) {
@@ -88,9 +88,10 @@ class Task {
         const div = document.createElement('div');
         const renameProject = document.createElement('p');
         const deleteProject = document.createElement('p');
-        const blank = document.getElementById('blank-edit-project');
+        const blank = document.getElementById('blank-edit-project') || document.getElementById('show-edit-project') ;
 
-        blank.id = 'show-edit-project';
+        if (blank.id === 'show-edit-project') blank.id = 'blank-edit-project';
+        else blank.id = 'show-edit-project';
         blank.innerHTML = '';
         renameProject.textContent = 'Rename';
         deleteProject.textContent = 'Delete';
@@ -124,15 +125,61 @@ class Task {
             if (action === "Delete") {
                 removeData(data, 'Project');
                 renderProjects();
+                defaultMain();
             }
             if (action === "Modify") {
                 const dataId = data.dataset.id;
-                const p = document.querySelector(`p[data-id="${dataId}"]`);
-                // Prompt the user for the new name[Input, Button Save, Button Cancel]
-                // Set datasets
-                // CreateMain() so it prints H1
-                projectEditLocalData(data, input);
-                renderProjects();
+                const div = document.querySelector(`div div.p-container[data-id="${dataId}"]`);
+                const input = document.createElement("input");
+                const save = document.createElement("img");
+                const cancel = document.createElement("img");
+                const rightContainer = document.createElement('div');
+                const divReference = div;
+
+                input.type = 'text';
+                input.placeholder = 'Change Name';
+                div.classList.add('edit-with-buttons');
+                div.innerHTML = '';
+                save.src = "./images/save.png";
+                cancel.src = "./images/cancel.png";
+                save.id = 'save';
+                cancel.id = 'cancel';
+                rightContainer.id = 'right-container-edit-projects';
+                input.dataset.name = data.dataset.name;
+                input.dataset.id = data.dataset.id;
+                input.dataset.local = data.dataset.local;
+
+                rightContainer.dataset.name = data.dataset.name;
+                rightContainer.dataset.id = data.dataset.id;
+                rightContainer.dataset.local = data.dataset.local;
+
+                save.dataset.name = data.dataset.name;
+                save.dataset.id = data.dataset.id;
+                save.dataset.local = data.dataset.local;
+
+                cancel.dataset.name = data.dataset.name;
+                cancel.dataset.id = data.dataset.id;
+                cancel.dataset.local = data.dataset.local;
+
+                
+                div.appendChild(input);
+                rightContainer.appendChild(save);
+                rightContainer.appendChild(cancel);
+                div.appendChild(rightContainer);
+            
+                save.addEventListener('click', () => {
+                    if (input.value !== '') {
+                        save.dataset.name = input.value;
+                        data.dataset.name = input.value;
+                        projectEditLocalData(data, input.value);
+                        createMainContent(data);
+                        renderProjects();
+                    }
+                })
+
+                cancel.addEventListener('click', () => {
+                    renderProjects();
+                })
             }
         }
 
@@ -147,6 +194,7 @@ class Task {
         }
 
     }
+
 
     function removeData (data, type) {
         if (type === "Project") {
@@ -163,14 +211,10 @@ class Task {
 
     function projectEditLocalData (name, newName) {
         const local = name.dataset.local;
-    const itemEnLocalStorage = JSON.parse(localStorage.getItem(local));
+        const itemEnLocalStorage = JSON.parse(localStorage.getItem(local));
 
-    itemEnLocalStorage.name = newName;
-
-  
-    localStorage.setItem(local, JSON.stringify(itemEnLocalStorage));
-
-
+        itemEnLocalStorage.name = newName;
+        localStorage.setItem(local, JSON.stringify(itemEnLocalStorage));
     }
 
     function hideCreateSection () {

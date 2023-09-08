@@ -548,3 +548,34 @@ input[type="radio"] {
     background-color: #fff;
     cursor: pointer;
 }
+
+.edit-with-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+}
+
+.edit-with-buttons input {
+    border: 1px solid black;
+    
+    width: 60%;
+    height: 60%;
+}
+
+#save, #cancel {
+    width: 20px;
+    height: 20px;
+}
+
+#save:hover, #cancel:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+#right-container-edit-projects {
+    display: flex;
+    justify-content: space-evenly;
+    width: 30%;
+}

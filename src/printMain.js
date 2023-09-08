@@ -270,15 +270,16 @@ function getProjectfromLocal (local) {
  
 function createMainDescription (text) {
     if (!findWord(text)) {
-        const info = text.dataset.local;
-        const div = renderAddTaskSection();
-        const tasks = getProjectfromLocal(info);
-        if (tasks.length) {
-            renderTasks(tasks);
-            return div;
+            const info = text.dataset.local;
+            const div = renderAddTaskSection();
+            const tasks = getProjectfromLocal(info);
+            if (tasks.length) {
+                renderTasks(tasks);
+                return div;
+            }
+             return div;
         }
-         return div;
-    }
+    
 
     if (findWord(text)) {
         const div = renderAddTaskSection();
@@ -389,4 +390,4 @@ function printMain (event) {
 }
 
 
-export {renderTasks, createMainContent, defaultMain, printMain};
+export { createMainDescription, renderTasks, createMainContent, defaultMain, printMain};
