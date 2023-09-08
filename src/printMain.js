@@ -28,21 +28,27 @@ function createMainContent (text) {
     return main;
 }
 
-function showTaskInput() {
+function showTaskInput(data) {
     const container = document.getElementById('no-show') || document.getElementById('yes-show') ;
     container.id = 'yes-show';
-    container.appendChild(createTaskForm())
+    if (data) {
+        console.log(data);
+        container.appendChild(createTaskForm(data))
+    }
+    else {
+        container.appendChild(createTaskForm())
+    }
     return container;
 }
 
-function createTaskForm() {
+function createTaskForm(data) {
+    if (data) console.log('Have data to edit inputs');
     const myForm = document.getElementById('task-form');
     const h1Main = document.getElementById('h1-main');
     if (myForm) return;
     const form = document.createElement('form');
     form.id = 'task-form';
 
-    // Función para crear un div wrapper para una etiqueta, un input y una imagen
     function createInputWrapper(labelText, inputType, inputName, isRequired = false) {
         const wrapper = document.createElement('div');
         const label = document.createElement('label');
@@ -64,7 +70,6 @@ function createTaskForm() {
         return wrapper;
     }
 
-    // Crear el div para "Title," "Description," y "Date" en un div con la clase "input-task"
     const inputTaskWrapper = document.createElement('div');
     inputTaskWrapper.classList.add('input-task');
 
@@ -76,7 +81,6 @@ function createTaskForm() {
     inputTaskWrapper.appendChild(descriptionWrapper);
     inputTaskWrapper.appendChild(dateWrapper);
 
-    // Crear el div para "Favourite," "Important," y los dos botones en un div con la clase "priority-task"
     const priorityTaskWrapper = document.createElement('div');
     priorityTaskWrapper.classList.add('priority-task');
 
@@ -86,17 +90,14 @@ function createTaskForm() {
     priorityTaskWrapper.appendChild(favouriteWrapper);
     priorityTaskWrapper.appendChild(importantWrapper);
 
-    // Crear el contenedor para los botones
     const buttonContainer = document.createElement('div');
     buttonContainer.id = 'button-container-task';
 
-    // Crear el botón "Add"
     const addButton = document.createElement('button');
     addButton.type = 'submit';
     addButton.textContent = 'Add';
     addButton.classList.add('accept');
 
-    // Crear el botón "Cancel"
     const cancelButton = document.createElement('button');
     cancelButton.type = 'button';
     cancelButton.textContent = 'Cancel';
@@ -107,7 +108,6 @@ function createTaskForm() {
 
     priorityTaskWrapper.appendChild(buttonContainer);
 
-    // Agregar los divs de "input-task" y "priority-task" al formulario
     form.appendChild(inputTaskWrapper);
     form.appendChild(priorityTaskWrapper);
 
@@ -140,7 +140,7 @@ function addTask (event) {
     const saved = JSON.parse(savedProject);
 
     if (title && description && date) {
-        const newTask = new Task(project, title, description, date, favourite, important, completed);
+        const newTask = new Task(project, title, description, date, favourite, important, completed, local);
     
         // Obtener las tareas existentes del Local Storage (si las hay)
         const myProject = JSON.parse(localStorage.getItem(local));
@@ -167,6 +167,7 @@ function hideTaskSection() {
 }
 
 function createDivTask (task) {
+    console.log(task);
     const div = document.createElement('div');
     const leftContainer = document.createElement('div');
     const radio = document.createElement('input');
@@ -210,6 +211,12 @@ function createDivTask (task) {
     title.classList.add('task-title');
     description.classList.add('task-description');
     date.classList.add('task-date');
+
+    for (const key in task) {
+        if (task.hasOwnProperty(key)) {
+            edit.setAttribute(`data-${key}`, task[key]);
+        }
+    }
 
     edit.addEventListener('click', createDivEditTask);
     edit.dataset.type = 'task';
@@ -390,4 +397,4 @@ function printMain (event) {
 }
 
 
-export { createMainDescription, renderTasks, createMainContent, defaultMain, printMain};
+export { showTaskInput, createMainDescription, renderTasks, createMainContent, defaultMain, printMain};

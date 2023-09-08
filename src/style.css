@@ -355,6 +355,7 @@ input {
     background-color: rgb(219, 248, 248);
     border: 1px solid black;
     border-radius: 6px;
+    margin: 2%;
 }
 
 #task-form {

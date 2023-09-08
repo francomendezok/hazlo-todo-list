@@ -1,5 +1,5 @@
-import { saveLocalProject, saveLocalTask, lookForLocalData, sortContainer } from "./localStorage";
-import { defaultMain, createMainDescription, createMainContent, printMain } from "./printMain";
+import { saveLocalProject, saveLocalTask, lookForLocalData, sortContainer, getAllLocalData } from "./localStorage";
+import { showTaskInput, defaultMain, createMainDescription, createMainContent, printMain } from "./printMain";
 
 class Project {
     constructor (name) {
@@ -15,7 +15,7 @@ class Project {
     }   
 }
 class Task {
-    constructor(project, title, description, date, favourite, important, completed) {
+    constructor(project, title, description, date, favourite, important, completed, local) {
             this.project = project;
             this.title = title;
             this.description = description;
@@ -23,6 +23,7 @@ class Task {
             this.favourite = favourite;
             this.important = important;
             this.completed = completed;
+            this.local = local;
     }
     
     modifyTask(project, title, description, date, favourite, important, completed) {
@@ -115,8 +116,9 @@ class Task {
         });
     }
 
-    function createDivEditTask () {
-        console.log('edit task');
+    function createDivEditTask (data) {
+        data = 'Messi';
+        showTaskInput(data);
 
     }
 
@@ -134,7 +136,7 @@ class Task {
                 const save = document.createElement("img");
                 const cancel = document.createElement("img");
                 const rightContainer = document.createElement('div');
-                const divReference = div;
+
 
                 input.type = 'text';
                 input.placeholder = 'Change Name';
@@ -212,8 +214,9 @@ class Task {
     function projectEditLocalData (name, newName) {
         const local = name.dataset.local;
         const itemEnLocalStorage = JSON.parse(localStorage.getItem(local));
-
         itemEnLocalStorage.name = newName;
+        const tasks = itemEnLocalStorage.tasks;
+        tasks.forEach(task => task.project = newName);
         localStorage.setItem(local, JSON.stringify(itemEnLocalStorage));
     }
 
