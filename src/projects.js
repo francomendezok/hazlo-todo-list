@@ -37,7 +37,9 @@ class Task {
     }
 }
 
-
+    function saveChangedTask () {
+        console.log('I will edit');
+    }
 
     function createAddSection () {
         const blank = document.querySelector('.blank');
@@ -117,9 +119,8 @@ class Task {
     }
 
     function createDivEditTask (data) {
-        data = 'Messi';
         showTaskInput(data);
-
+        editForm(data);
     }
 
     function edit (data, type, action) {
@@ -197,6 +198,20 @@ class Task {
 
     }
 
+    function editForm (data) {
+        const title = document.getElementById('title');
+        const description = document.getElementById('description');
+        const date = document.getElementById('date');
+        const important = document.getElementById('important');
+        const favourite = document.getElementById('favourite');
+        
+        title.value = data.title;
+        description.value = data.description;
+        date.value = data.date;
+        important.checked = data.important; 
+        favourite.checked = data.favourite;    
+    }
+
 
     function removeData (data, type) {
         if (type === "Project") {
@@ -248,5 +263,5 @@ class Task {
 
 
 
-    export { createDivEditTask, createDivEditProject, Task, getProjectInfo, renderProjects, createAddSection, createProject};
+    export { saveChangedTask, createDivEditTask, createDivEditProject, Task, getProjectInfo, renderProjects, createAddSection, createProject};
    

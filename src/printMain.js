@@ -1,5 +1,5 @@
 import { getAllLocalData, lookForLocalData, getLocal } from "./localStorage";
-import { createDivEditTask, Task, getProjectInfo } from "./projects";
+import { saveChangedTask, createDivEditTask, Task, getProjectInfo } from "./projects";
 import { formatDistance, subDays } from 'date-fns'
 import { All, Today, Week, Important, Favourite, Completed } from './timePeriod'; 
 
@@ -42,7 +42,6 @@ function showTaskInput(data) {
 }
 
 function createTaskForm(data) {
-    if (data) console.log('Have data to edit inputs');
     const myForm = document.getElementById('task-form');
     const h1Main = document.getElementById('h1-main');
     if (myForm) return;
@@ -111,9 +110,13 @@ function createTaskForm(data) {
     form.appendChild(inputTaskWrapper);
     form.appendChild(priorityTaskWrapper);
 
-    addButton.addEventListener('click', addTask)
+    addButton.addEventListener('click', addTask);
     cancelButton.addEventListener('click', hideTaskSection)
     
+    // if (data) {
+    //     // addButton.removeEventListener('click', addTask);
+    //     // addButton.addEventListener('click', saveChangedTask);
+    // }
     return form;
 }
 
@@ -127,7 +130,6 @@ function addTask (event) {
     const inputImportant = document.getElementById('important');
     const project = data.dataset.name;
     const local = data.dataset.local;
-    const nameTask = `${project} ${local}`;
 
     const title = inputTitle.value;
     const description = inputDescription.value;
@@ -167,7 +169,6 @@ function hideTaskSection() {
 }
 
 function createDivTask (task) {
-    console.log(task);
     const div = document.createElement('div');
     const leftContainer = document.createElement('div');
     const radio = document.createElement('input');
@@ -218,7 +219,9 @@ function createDivTask (task) {
         }
     }
 
-    edit.addEventListener('click', createDivEditTask);
+    edit.addEventListener('click', () => {
+        createDivEditTask(task);
+    });
     edit.dataset.type = 'task';
 
     textBox.appendChild(title);
@@ -293,16 +296,16 @@ function createMainDescription (text) {
         const tasks = getTimePeriod(text);
         if (tasks.length) {
             renderTasks(tasks);
+            console.log(div);
             return div;
         }
+        else {
+            const h3 = document.createElement('h3');
+            h3.textContent = 'No Tasks';
+            h3.classList.add('description');
+            return h3;
+        }
          return div;
-    }
-
-    else {
-        const h3 = document.createElement('h3');
-        h3.textContent = 'No Tasks';
-        h3.classList.add('description');
-        return h3;
     }
 }
 
