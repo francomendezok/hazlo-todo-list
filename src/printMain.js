@@ -1,5 +1,5 @@
 import { getAllLocalData, lookForLocalData, getLocal } from "./localStorage";
-import { saveChangedTask, createDivEditTask, Task, getProjectInfo } from "./projects";
+import { editOneTaskFeature, setFavourite, setImportant, edit, saveChangedTask, createDivEditTask, Task, getProjectInfo } from "./projects";
 import { formatDistance, subDays } from 'date-fns'
 import { All, Today, Week, Important, Favourite, Completed } from './timePeriod'; 
 
@@ -133,8 +133,12 @@ function createTaskForm(data) {
        form.addEventListener('submit', event => event.preventDefault());
        addButton.removeEventListener('click', addTask);
        cancelButton.removeEventListener('click', hideTaskSection);
-        addButton.addEventListener('click', () => console.log('Edit Task'));
-        cancelButton.addEventListener('click', () => console.log('Delete'));
+        addButton.addEventListener('click', function () {
+            edit(data, 'Task', 'Modify')
+        });
+        cancelButton.addEventListener('click', function () {
+            edit(data, 'Task', 'Delete')
+        });
         hideButton.addEventListener('click', hideTaskSection);
     }
     return form;
@@ -184,15 +188,17 @@ function addTask (event) {
 
 function hideTaskSection() {
     const container = document.getElementById('yes-show');
-    container.innerHTML = '';
-    container.id = 'no-show';
+    if (container) {
+        container.innerHTML = '';
+        container.id = 'no-show';
+    }
 }
 
 function createDivTask (task) {
     const div = document.createElement('div');
     const leftContainer = document.createElement('div');
-    const radio = document.createElement('input');
-    const radioBox = document.createElement('div');
+    const check = document.createElement('input');
+    const checkBox = document.createElement('div');
     const textBox = document.createElement('div');
     const title = document.createElement('h3');
     const description = document.createElement('p');
@@ -204,7 +210,8 @@ function createDivTask (task) {
     
     title.textContent = task.title;
     description.textContent = task.description;
-    radio.type = "radio";
+    check.type = "checkbox";
+    check.classList.add('check');
     date.textContent = task.date;
     if (task.favourite) {
         favourite.src = './images/favorites.png';
@@ -228,7 +235,7 @@ function createDivTask (task) {
     leftContainer.classList.add('left-container');
     rightContainer.classList.add('right-container');
     textBox.classList.add('text-box');
-    radioBox.classList.add('radio-box');
+    checkBox.classList.add('check-box');
     title.classList.add('task-title');
     description.classList.add('task-description');
     date.classList.add('task-date');
@@ -238,17 +245,30 @@ function createDivTask (task) {
             edit.setAttribute(`data-${key}`, task[key]);
         }
     }
-
-    edit.addEventListener('click', () => {
-        createDivEditTask(task);
+    favourite.addEventListener('click', function () {
+        const reference = favourite.src;
+        setFavourite(task, reference);
     });
+    important.addEventListener('click', function () {
+        const reference = important.src;
+        setImportant(task, reference);
+    });
+   /// SOLVE THIS COMPLETED SECTION ///
+    check.addEventListener('click', function () {
+        task.completed = true;
+        editOneTaskFeature(task);
+        const h1Main = document.getElementById('h1-main');
+        createMainContent(h1Main); 
+    })
+
+    edit.addEventListener('click', () => createDivEditTask(task));
     edit.dataset.type = 'task';
 
     textBox.appendChild(title);
     textBox.appendChild(description);
-    radioBox.appendChild(radio)
+    checkBox.appendChild(check)
 
-    leftContainer.appendChild(radioBox)
+    leftContainer.appendChild(checkBox)
     leftContainer.appendChild(textBox);
 
     rightContainer.appendChild(date);
@@ -420,4 +440,4 @@ function printMain (event) {
 }
 
 
-export { showTaskInput, createMainDescription, renderTasks, createMainContent, defaultMain, printMain};
+export { hideTaskSection, showTaskInput, createMainDescription, renderTasks, createMainContent, defaultMain, printMain};

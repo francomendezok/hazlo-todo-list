@@ -1,5 +1,5 @@
 import { saveLocalProject, saveLocalTask, lookForLocalData, sortContainer, getAllLocalData } from "./localStorage";
-import { showTaskInput, defaultMain, createMainDescription, createMainContent, printMain } from "./printMain";
+import { hideTaskSection, showTaskInput, defaultMain, createMainDescription, createMainContent, printMain, renderTasks } from "./printMain";
 
 class Project {
     constructor (name) {
@@ -9,10 +9,7 @@ class Project {
     addNewTask(task) {
         this.tasks.push(task);
       }
-
-    modifyTask(task, title, description, date, favourite, important) {
-
-    }   
+ 
 }
 class Task {
     constructor(project, title, description, date, favourite, important, completed, local) {
@@ -184,14 +181,19 @@ class Task {
 
         if (type === 'Task') {
             if (action === "Delete") {
-
+                removeData(data, 'Task');
+                const h1Main = document.getElementById('h1-main');
+                createMainContent(h1Main);
+                hideTaskSection();
             }
+
             if (action === "Modify") {
-                console.log('Modify');
-                console.log(data);
+                taskEditLocalData(data);
+                const h1Main = document.getElementById('h1-main');
+                createMainContent(h1Main);
+                hideTaskSection();
             }
         }
-
     }
 
     function editForm (data) {
@@ -208,6 +210,11 @@ class Task {
         favourite.checked = data.favourite;    
     }
 
+    function getLocalProject (local) {
+        const localProject = JSON.parse(localStorage.getItem(local));
+        return localProject;
+    }
+
 
     function removeData (data, type) {
         if (type === "Project") {
@@ -218,8 +225,18 @@ class Task {
         }
 
         if (type === "Task") {
-
+            const project = JSON.parse(localStorage.getItem(data.local));
+            const tasks = project.tasks;
+            for (let i = 0; i < tasks.length; i++) {
+                if (tasks[i].title === data.title) {
+                    const taskKey = `task_${tasks[i].title}`; 
+                    localStorage.removeItem(taskKey);    
+                    tasks.splice(i, 1); 
+                }
+            }
+            localStorage.setItem(data.local, JSON.stringify(project)); 
         }
+        
     }
 
     function projectEditLocalData (name, newName) {
@@ -230,6 +247,31 @@ class Task {
         tasks.forEach(task => task.project = newName);
         localStorage.setItem(local, JSON.stringify(itemEnLocalStorage));
     }
+
+    function taskEditLocalData(data) {
+        const title = document.getElementById('title');
+        const description = document.getElementById('description');
+        const date = document.getElementById('date');
+        const important = document.getElementById('important');
+        const favourite = document.getElementById('favourite');
+        const local = data.local;
+        const project = JSON.parse(localStorage.getItem(local));
+        const tasks = project.tasks;
+        
+            for (let i = 0; i < tasks.length; i++) {
+                if (tasks[i].title === data.title) {
+                    tasks[i].title = title.value;
+                    tasks[i].description = description.value;
+                    tasks[i].date = date.value;
+                    tasks[i].important = important.checked;
+                    tasks[i].favourite = favourite.checked;
+                    break;
+                }
+            }
+            localStorage.setItem(local, JSON.stringify(project));
+        }
+    
+
 
     function hideCreateSection () {
         const blank = document.querySelector('.blank');
@@ -256,8 +298,55 @@ class Task {
         printMain(event); 
 }
 
+    function setFavourite (data, reference) {
+        const h1Main = document.getElementById('h1-main');
+
+        if (reference.includes('empty-star')) {
+            data.favourite = true;
+            editOneTaskFeature(data);
+            createMainContent(h1Main);
+        }
+        else {
+            data.favourite = false;
+            editOneTaskFeature(data);
+            createMainContent(h1Main);
+        }
+        
+    }
+
+    function setImportant (data, reference) {
+        const h1Main = document.getElementById('h1-main');
+
+        if (reference.includes('black-important')) {
+            data.important = true;
+            editOneTaskFeature(data);
+            createMainContent(h1Main);
+        }
+        else {
+            data.important = false;
+            editOneTaskFeature(data);
+            createMainContent(h1Main);
+        }
+
+    }
+
+    function editOneTaskFeature (task) {
+        const local = task.local;
+        const project = JSON.parse(localStorage.getItem(local));
+        const tasks = project.tasks;
+        
+        for (let i = 0; i < tasks.length; i++) {
+                if (tasks[i].title === task.title) {
+                    tasks[i].favourite = task.favourite;
+                    tasks[i].important = task.important;
+                    tasks[i].completed = task.completed;
+            }
+        }
+        localStorage.setItem(local, JSON.stringify(project));
+    }
 
 
 
-    export { createDivEditTask, createDivEditProject, Task, getProjectInfo, renderProjects, createAddSection, createProject};
+
+    export { editOneTaskFeature, setFavourite, setImportant, edit, createDivEditTask, createDivEditProject, Task, getProjectInfo, renderProjects, createAddSection, createProject};
    

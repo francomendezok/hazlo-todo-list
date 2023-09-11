@@ -473,14 +473,20 @@ input[type="checkbox"] {
     padding-left: 2%;
 }
 
-.radio-box {
+.check {
+    width: 100% !important;
+    height: 40% !important;
+    align-self: center !important;
+}
+.check-box {
     width: 20%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-
+    align-self: center;
 }
+
 
 input[type="radio"] {
     width: 100%;
