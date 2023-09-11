@@ -240,14 +240,14 @@ input {
     justify-content: space-evenly; 
 }
 
-#decline, #accept, .accept, .decline {
+#decline, #accept, .accept, .decline, .hide {
     border-radius: 6px;
     width: 30%;
     height: 100%;
     border: 1px solid black;
 }
 
-#decline:hover, #accept:hover, .accept:hover, .decline:hover {
+#decline:hover, #accept:hover, .accept:hover, .decline:hover, .hide:hover {
     transform: scale(1.1);
     transition: ease-in-out;
     cursor: pointer;

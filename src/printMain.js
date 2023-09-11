@@ -3,6 +3,9 @@ import { saveChangedTask, createDivEditTask, Task, getProjectInfo } from "./proj
 import { formatDistance, subDays } from 'date-fns'
 import { All, Today, Week, Important, Favourite, Completed } from './timePeriod'; 
 
+let lastExecutionData;
+let lastPencil;
+
 
 function createMainContent (text) {
     const div = document.createElement('div')
@@ -31,10 +34,14 @@ function createMainContent (text) {
 function showTaskInput(data) {
     const container = document.getElementById('no-show') || document.getElementById('yes-show') ;
     container.id = 'yes-show';
+    
     if (data) {
-        console.log(data);
-        container.appendChild(createTaskForm(data))
+        lastExecutionData = data;
+        if (!container.innerHTML) {
+            container.appendChild(createTaskForm(data));
+        }
     }
+   
     else {
         container.appendChild(createTaskForm())
     }
@@ -43,7 +50,6 @@ function showTaskInput(data) {
 
 function createTaskForm(data) {
     const myForm = document.getElementById('task-form');
-    const h1Main = document.getElementById('h1-main');
     if (myForm) return;
     const form = document.createElement('form');
     form.id = 'task-form';
@@ -102,6 +108,11 @@ function createTaskForm(data) {
     cancelButton.textContent = 'Cancel';
     cancelButton.classList.add('decline');
 
+    const hideButton = document.createElement('button');
+    hideButton.type = 'button';
+    hideButton.textContent = 'Cancel';
+    hideButton.classList.add('hide');
+
     buttonContainer.appendChild(addButton);
     buttonContainer.appendChild(cancelButton);
 
@@ -113,10 +124,19 @@ function createTaskForm(data) {
     addButton.addEventListener('click', addTask);
     cancelButton.addEventListener('click', hideTaskSection)
     
-    // if (data) {
-    //     // addButton.removeEventListener('click', addTask);
-    //     // addButton.addEventListener('click', saveChangedTask);
-    // }
+    if (data.project && data.title) {
+       addButton.textContent = 'Save';
+       cancelButton.textContent = 'Delete';
+       hideButton.textContent = 'Cancel';
+       hideButton.style.backgroundColor = 'orange';
+       buttonContainer.appendChild(hideButton);
+       form.addEventListener('submit', event => event.preventDefault());
+       addButton.removeEventListener('click', addTask);
+       cancelButton.removeEventListener('click', hideTaskSection);
+        addButton.addEventListener('click', () => console.log('Edit Task'));
+        cancelButton.addEventListener('click', () => console.log('Delete'));
+        hideButton.addEventListener('click', hideTaskSection);
+    }
     return form;
 }
 

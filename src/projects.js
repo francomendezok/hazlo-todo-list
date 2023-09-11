@@ -37,10 +37,6 @@ class Task {
     }
 }
 
-    function saveChangedTask () {
-        console.log('I will edit');
-    }
-
     function createAddSection () {
         const blank = document.querySelector('.blank');
         const input = document.createElement('input');
@@ -263,5 +259,5 @@ class Task {
 
 
 
-    export { saveChangedTask, createDivEditTask, createDivEditProject, Task, getProjectInfo, renderProjects, createAddSection, createProject};
+    export { createDivEditTask, createDivEditProject, Task, getProjectInfo, renderProjects, createAddSection, createProject};
    
