@@ -341,7 +341,6 @@ function createMainDescription (text) {
         const tasks = getTimePeriod(text);
         if (tasks.length) {
             renderTasks(tasks);
-            console.log(div);
             return div;
         }
         else {

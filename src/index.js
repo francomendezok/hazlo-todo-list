@@ -4,14 +4,12 @@ import darkMode from "./darkMode";
 import { createEditSection, renderProjects, createAddSection, createProject, getProjectInfo } from "./projects";
 import { createDivProject, getLocal, saveLocalProject, saveLocalTask, lookForLocalData } from "./localStorage";
 
-const switcher = document.getElementById('switch');
 const menu = document.getElementById('menu');
 const categories = document.querySelectorAll('.time-period');
 const addProject = document.getElementById('create-project');
 
 categories.forEach(cat => cat.addEventListener('click', printMain));
 menu.addEventListener('click', printSidebar);
-switcher.addEventListener('click', darkMode);
 addProject.addEventListener('click', createAddSection);
 window.addEventListener('click', (event) => {
     const projectEditSection = document.getElementById('show-edit-project');
@@ -23,6 +21,17 @@ window.addEventListener('click', (event) => {
 document.addEventListener('DOMContentLoaded', () => {
     defaultMain();
     renderProjects(); 
+    darkMode();
+    const switcher = document.querySelector('.darkmode-toggle');
+    switcher.addEventListener('click', () => {
+        if (document.body.classList[0] === 'darkmode--activated') {
+            menu.src = './images/white-menu.png';
+        }
+        else menu.src = './images/menu.png';
+    })
+    if (document.body.classList[0] === 'darkmode--activated') {
+        menu.src = './images/white-menu.png';
+    }
+    else menu.src = './images/menu.png';
 });
-
 

@@ -50,7 +50,7 @@ html, body {
 .header {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: flex-start;
     background-color: aliceblue;
 }
 
@@ -97,6 +97,8 @@ html, body {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    height: 100%;
+    width: 100%;
 }
 
 .title {
@@ -106,8 +108,10 @@ html, body {
 
 .menu-icon {
     display: grid;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
+    width: 20%;
+    height: 100%;
 }
 
 .dark-mode {
