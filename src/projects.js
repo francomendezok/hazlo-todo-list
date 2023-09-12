@@ -54,14 +54,14 @@ class Task {
         input.type = 'text';
         input.maxLength = 15;
         input.id = 'input';
-        blank.id = 'show-add';
+        blank.id = 'show-add-section';
         accept.id = 'accept';
         decline.id = 'decline';
         buttonsDiv.id = 'buttons-div';
 
 
         accept.addEventListener('click', function () {
-            const regex = /^[a-zA-Z0-9]*$/; // Solo letras y números permitidos
+            const regex = /^[a-zA-Z0-9]*$/;
 
             if (input.value !== '' && regex.test(input.value)) {
                 const name = input.value;
@@ -330,13 +330,31 @@ class Task {
 
     }
 
+    function setCompleted (data) {
+        const h1Main = document.getElementById('h1-main');
+        console.log(data);
+
+        if (data.completed) {
+            data.completed = false;
+            editOneTaskFeature(data);
+            createMainContent(h1Main);
+        }
+
+        else {
+            data.completed = true;
+            editOneTaskFeature(data);
+            createMainContent(h1Main);
+        }
+    }
+
     function editOneTaskFeature (task) {
         const local = task.local;
         const project = JSON.parse(localStorage.getItem(local));
         const tasks = project.tasks;
+        const title = task.title;
         
         for (let i = 0; i < tasks.length; i++) {
-                if (tasks[i].title === task.title) {
+                if (tasks[i].title === title) {
                     tasks[i].favourite = task.favourite;
                     tasks[i].important = task.important;
                     tasks[i].completed = task.completed;
@@ -348,5 +366,5 @@ class Task {
 
 
 
-    export { editOneTaskFeature, setFavourite, setImportant, edit, createDivEditTask, createDivEditProject, Task, getProjectInfo, renderProjects, createAddSection, createProject};
+    export { setCompleted, editOneTaskFeature, setFavourite, setImportant, edit, createDivEditTask, createDivEditProject, Task, getProjectInfo, renderProjects, createAddSection, createProject};
    

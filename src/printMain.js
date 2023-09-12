@@ -1,5 +1,5 @@
 import { getAllLocalData, lookForLocalData, getLocal } from "./localStorage";
-import { editOneTaskFeature, setFavourite, setImportant, edit, saveChangedTask, createDivEditTask, Task, getProjectInfo } from "./projects";
+import { setCompleted, editOneTaskFeature, setFavourite, setImportant, edit, saveChangedTask, createDivEditTask, Task, getProjectInfo } from "./projects";
 import { formatDistance, subDays } from 'date-fns'
 import { All, Today, Week, Important, Favourite, Completed } from './timePeriod'; 
 
@@ -225,6 +225,16 @@ function createDivTask (task) {
     else {
         important.src = './images/black-important.png';
     }
+    if (task.completed) {
+        check.checked = true;
+        title.style.textDecoration = 'line-through';
+        description.style.textDecoration = 'line-through';
+    }
+    else {
+        check.checked = false;
+        title.style.textDecoration = '';
+        description.style.textDecoration = '';
+    }
     edit.src = './images/edit-pencil.png';
     
     favourite.classList.add('task-img');
@@ -243,6 +253,7 @@ function createDivTask (task) {
     for (const key in task) {
         if (task.hasOwnProperty(key)) {
             edit.setAttribute(`data-${key}`, task[key]);
+            check.setAttribute(`data-${key}`, task[key]);
         }
     }
     favourite.addEventListener('click', function () {
@@ -253,13 +264,7 @@ function createDivTask (task) {
         const reference = important.src;
         setImportant(task, reference);
     });
-   /// SOLVE THIS COMPLETED SECTION ///
-    check.addEventListener('click', function () {
-        task.completed = true;
-        editOneTaskFeature(task);
-        const h1Main = document.getElementById('h1-main');
-        createMainContent(h1Main); 
-    })
+    check.addEventListener('click', () => setCompleted(task));
 
     edit.addEventListener('click', () => createDivEditTask(task));
     edit.dataset.type = 'task';

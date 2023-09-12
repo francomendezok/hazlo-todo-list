@@ -196,14 +196,15 @@ h1 {
     display: none;
 }
 
-#show-add {
+#show-add-section {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     background-color: lightslategray;
     border-radius: 6px;
-    height: 50px;
+    height: 25%;
+    max-height: 50px;
     width: 100%;
     margin-top: 2%;
 }
@@ -315,6 +316,7 @@ input {
     font-size: 150%;
 }
 
+
 .div-create-task {
     display: flex;
     flex-direction: column;
@@ -355,7 +357,7 @@ input {
     background-color: rgb(219, 248, 248);
     border: 1px solid black;
     border-radius: 6px;
-    margin: 2%;
+    margin-bottom: 2%;
 }
 
 #task-form {
@@ -585,4 +587,9 @@ input[type="radio"] {
     display: flex;
     justify-content: space-evenly;
     width: 30%;
+}
+
+#full-main {
+    width: 100vw;
+    height: 100vh;
 }
