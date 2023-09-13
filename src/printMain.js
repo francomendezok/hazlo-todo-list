@@ -50,7 +50,7 @@ function showTaskInput(data) {
 
 function createTaskForm(data) {
     const myForm = document.getElementById('task-form');
-    if (myForm) return;
+    // if (myForm) return;
     const form = document.createElement('form');
     form.id = 'task-form';
 
@@ -120,6 +120,11 @@ function createTaskForm(data) {
 
     form.appendChild(inputTaskWrapper);
     form.appendChild(priorityTaskWrapper);
+    for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+            form.setAttribute(`data-${key}`, data[key]);
+        }
+    }
 
     addButton.addEventListener('click', addTask);
     cancelButton.addEventListener('click', hideTaskSection)
@@ -133,10 +138,10 @@ function createTaskForm(data) {
        form.addEventListener('submit', event => event.preventDefault());
        addButton.removeEventListener('click', addTask);
        cancelButton.removeEventListener('click', hideTaskSection);
-        addButton.addEventListener('click', function () {
+        addButton.addEventListener('click', () => {
             edit(data, 'Task', 'Modify')
         });
-        cancelButton.addEventListener('click', function () {
+        cancelButton.addEventListener('click', () => {
             edit(data, 'Task', 'Delete')
         });
         hideButton.addEventListener('click', hideTaskSection);
@@ -266,7 +271,14 @@ function createDivTask (task) {
     });
     check.addEventListener('click', () => setCompleted(task));
 
-    edit.addEventListener('click', () => createDivEditTask(task));
+    edit.addEventListener('click', () => {
+        hideTaskSection();
+        createDivEditTask(task);
+        createTaskForm(task);
+    });
+
+
+
     edit.dataset.type = 'task';
 
     textBox.appendChild(title);
@@ -304,16 +316,20 @@ function renderAddTaskSection () {
         const img = document.createElement('img');
         const h3 = document.createElement('h3');
         const container = document.createElement('div');
+        const h1Text = document.getElementById('h1-main'); 
         
-        div.classList.add('div-create-task');
-        container.classList.add('container-create-task');
-        img.src = './images/plus.png';
-        h3.textContent = 'Add Task';
-        h3.style.marginLeft = '5%';
-        container.appendChild(img);
-        container.appendChild(h3)
-        div.appendChild(container);
-        container.addEventListener('click', showTaskInput);
+        if (!findWord(h1Text.textContent)) {
+            div.classList.add('div-create-task');
+            container.classList.add('container-create-task');
+            img.src = './images/plus.png';
+            h3.textContent = 'Add Task';
+            h3.style.marginLeft = '5%';
+            container.appendChild(img);
+            container.appendChild(h3)
+            div.appendChild(container);
+            container.addEventListener('click', showTaskInput);
+        }
+
         return div;
 }
 

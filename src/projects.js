@@ -181,6 +181,7 @@ class Task {
 
         if (type === 'Task') {
             if (action === "Delete") {
+                console.log(data);
                 removeData(data, 'Task');
                 const h1Main = document.getElementById('h1-main');
                 createMainContent(h1Main);
@@ -188,6 +189,7 @@ class Task {
             }
 
             if (action === "Modify") {
+                console.log(data);
                 taskEditLocalData(data);
                 const h1Main = document.getElementById('h1-main');
                 createMainContent(h1Main);
@@ -332,7 +334,6 @@ class Task {
 
     function setCompleted (data) {
         const h1Main = document.getElementById('h1-main');
-        console.log(data);
 
         if (data.completed) {
             data.completed = false;

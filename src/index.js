@@ -23,15 +23,25 @@ document.addEventListener('DOMContentLoaded', () => {
     renderProjects(); 
     darkMode();
     const switcher = document.querySelector('.darkmode-toggle');
+    const plusImages = document.querySelectorAll('img[src="./images/plus.png"]');
+
     switcher.addEventListener('click', () => {
         if (document.body.classList[0] === 'darkmode--activated') {
             menu.src = './images/white-menu.png';
+            plusImages.forEach(img => img.src = './images/plus-white.png');
         }
-        else menu.src = './images/menu.png';
+        else {
+            menu.src = './images/menu.png';
+            plusImages.forEach(img => img.src = './images/plus.png')
+        }
     })
     if (document.body.classList[0] === 'darkmode--activated') {
         menu.src = './images/white-menu.png';
+        plusImages.forEach(img => img.src = './images/plus-white.png');
     }
-    else menu.src = './images/menu.png';
+    else {
+        menu.src = './images/menu.png';
+        plusImages.forEach(img => img.src = './images/plus.png')
+    }
 });
 
