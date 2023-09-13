@@ -400,10 +400,6 @@ function getTimePeriod (name) {
       };
     const section = new (classMap[name])();
     const selectedTasks = section.printTimePeriodFromLocal(data);
-
-    // if (selectedTasks.length) {
-    //     //
-    // }
         
     return selectedTasks;  
 }
@@ -460,4 +456,4 @@ function printMain (event) {
 }
 
 
-export { hideTaskSection, showTaskInput, createMainDescription, renderTasks, createMainContent, defaultMain, printMain};
+export { getTimePeriod, findWord, hideTaskSection, showTaskInput, createMainDescription, renderTasks, createMainContent, defaultMain, printMain};

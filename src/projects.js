@@ -1,5 +1,5 @@
 import { saveLocalProject, saveLocalTask, lookForLocalData, sortContainer, getAllLocalData } from "./localStorage";
-import { hideTaskSection, showTaskInput, defaultMain, createMainDescription, createMainContent, printMain, renderTasks } from "./printMain";
+import { getTimePeriod, findWord, hideTaskSection, showTaskInput, defaultMain, createMainDescription, createMainContent, printMain, renderTasks } from "./printMain";
 
 class Project {
     constructor (name) {
@@ -302,18 +302,22 @@ class Task {
 
     function setFavourite (data, reference) {
         const h1Main = document.getElementById('h1-main');
+        const text = h1Main.textContent;
+        let timePeriod = false;
 
-        if (reference.includes('empty-star')) {
+        if (findWord(text)) timePeriod = true;
+
+        if (reference.includes('empty-star') && !timePeriod) {
             data.favourite = true;
             editOneTaskFeature(data);
             createMainContent(h1Main);
         }
+
         else {
             data.favourite = false;
             editOneTaskFeature(data);
             createMainContent(h1Main);
-        }
-        
+        }        
     }
 
     function setImportant (data, reference) {
