@@ -593,8 +593,614 @@ input[type="checkbox"] {
     height: 100vh;
 }
 
+
+
+
+
+
+
+
 @media (max-width: 450px) {
-    body {
+    .container {
+        background-color: white;
         width: 100%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: 1fr; 
+        grid-template-rows: 0.5fr 4fr;
+    }
+    
+    .header {
+        display: flex;
+        align-items: center;
+        background-color: aliceblue;
+    }
+    
+    
+    .main-container {
+        display: grid;
+        grid-template-columns: 1fr 4fr;
+        grid-template-rows: 1fr;
+    }
+    
+    .main {
+        background-color: rgba(254, 254, 254, 0);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    
+    
+    .sidebar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        background-color: rgb(219, 248, 248);
+    }
+    
+    .sidebar-home {
+        width: 90%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    
+    .sidebar-projects {
+        margin-top: 10%;
+        width: 90%;
+        height: 100%;
+    }
+    
+    .app-logo {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        font-size: 50%;
+    }
+    
+    .title {
+        display: flex;
+        align-items: center;
+    }
+
+    .title img  {
+        width: 50px;
+        height: 50px;
+    }
+
+    #menu {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .menu-icon {
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        width: 20%;
+        height: 100%;
+    }
+        
+    .sidebar-title {
+        border-bottom: 2px solid black;
+        font-size: 100%;
+        padding-bottom: 3%;
+    }
+    
+    .add-project {
+        display: flex;
+        align-items: center;
+        font-size: 80%;
+        gap: 2%;
+        margin-top: 5%;
+        height: 10%;
+    }
+    
+    .add-project:hover {
+        background-color: lightslategray;
+        cursor: pointer;
+        color: white;
+        border-radius: 6px;
+    }
+    
+    .time-period {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin: 3%;
+    }
+    
+    .time-period h3 {
+        font-size: 60%;
+        margin-left: 3%;
+        font-weight: 500;
+    }
+    
+    .time-period:hover {
+        background-color: lightslategray;
+        cursor: pointer;
+        color: white;
+        border-radius: 6px;
+    }
+    
+    .clicked {
+        background-color: lightslategray;
+        cursor: pointer;
+        color: white;
+        border-radius: 6px;
+    }
+    
+    .time-period img {
+        width: 20px;
+        height: 20px;
+    }
+    
+    h1 {
+        font-size: 200%;
+        font-weight: 500;
+    }
+    
+    .hide-sidebar {
+        display: none;
+    }
+    
+    .inner-text {
+        background-color: rgb(219, 248, 248);
+        border-radius: 6px;
+        display: flex;
+        width: 90%;
+        height: 10%;
+        justify-content: center;
+        align-items: center;
+        margin: 2%;
+        text-align: center;
+        font-size: 80%;
+    }
+    
+    .blank {
+        display: none;
+    }
+    
+    #show-add-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        background-color: lightslategray;
+        border-radius: 6px;
+        height: 30%;
+        max-height: 50px;
+        width: 100%;
+        margin-top: 5%;
+    }
+
+    #show-add-section input {
+        height: 30%;
+        width: 80%;
+        border-radius: 1px;
+
+    }
+    
+    input {
+        background-color: white;
+        border-radius: 6px;
+        border: 1px solid black;
+        height: 60%;
+        width: 80%;
+        text-align: center;
+    }
+    
+    .my-projects {
+        display: none;
+        height: 90%;
+        width: 90%;
+    }
+    
+    #show-my-projects {
+        display: flex;
+        flex-direction: column;
+        color: white;
+        height:50%;
+        width: 100%;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+    
+    #buttons-div {
+        width: 90%;
+        height: 30%;
+        display: flex;
+        justify-content: space-around; 
+    }
+    
+    #decline, #accept, .accept, .decline, .hide {
+        border-radius: 6px;
+        width: 30%;
+        height: 100%;
+        border: 1px solid black;
+    }
+
+    #decline, #accept {
+        font-size: 50%;
+        width: 100%;
+    }
+    
+    .accept, .decline, .hide {
+        height: 20%;
+    }
+    
+    #decline:hover, #accept:hover, .accept:hover, .decline:hover, .hide:hover {
+        transform: scale(1.1);
+        transition: ease-in-out;
+        cursor: pointer;
+    }
+    
+    #accept, .accept {
+        background-color: lightgreen;
+    }
+    
+    #decline, .decline {
+        background-color: lightcoral;
+    }
+    
+    .div-project {
+        background-color: lightslategray;
+        border-radius: 2px;
+        display: flex;
+        width: 90%;
+        height: 50%;
+        max-height: 25px;
+        justify-content: space-around;
+        align-items: center;
+        margin: 2%;
+        text-align: center;
+        font-size: 70%;
+    }
+    
+    .div-project:first-of-type {
+        margin-top: 10%;
+    }
+    
+    
+    .div-project:hover {
+        background-color: lightgreen;
+        color: black;
+        cursor: pointer;
+    }
+    
+    .icon-div {
+        width: 10%;
+        height: 80%;
+    }
+    
+    .p-container {
+        width: 80%;
+    }
+    
+    .clicked-project {
+        background-color: lightgreen;
+        border-radius: 2px;
+        display: flex;
+        width: 90%;
+        height: 50%;
+        justify-content: space-around;
+        align-items: center;
+        margin: 2%;
+        text-align: center;
+        font-size: 70%;
+        cursor: pointer;
+        color: black;
+    }
+    
+    .description {
+        text-align: center;
+        font-size: 150%;
+    }
+    
+    
+    .div-create-task {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 90%;
+        height: 10%;
+        text-align: center;
+        font-size: 80%;
+    }
+    
+    .container-create-task {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 20%;
+    }
+
+    .container-create-task img, #create-project img {
+        width: 15px;
+        height: 15px;
+    }
+
+    #create-project {
+        font-size: 50%;
+    }
+    
+    .container-create-task:hover {
+        transform: scale(1.05);
+        cursor: pointer;
+        background-color: lightgreen;
+    }
+    
+    #no-show {
+        display: none;
+    }
+    
+    #yes-show {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 90%;
+        height: 30%;
+        background-color: rgb(219, 248, 248);
+        border: 1px solid black;
+        border-radius: 6px;
+        margin-bottom: 2%;
+    }
+    
+    #task-form {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    
+    #task-form label {
+       font-size: 70%;
+       font-weight: bold;
+       align-self: flex-start;
+    }
+    
+    #task-form input {
+        width: 100%;
+        font-size: 50%;
+    } 
+    
+    #button-container-task {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        align-self: center;
+        width: 70%;
+        height: 100%;
+    }
+
+    #button-container-task button {
+        width: 50%;
+        height: 15%;
+        font-size: 70%;
+    }
+    
+    .wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        width: 100%;
+    }
+    
+    .wrapper label {
+        display: flex;
+        justify-content: center;
+    }
+    
+    
+    .wrapper img {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .input-task {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        
+    }
+    
+    .priority-task {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    
+    
+    .input-task label {
+        width: 100%;
+        align-items: center !important;
+        text-align: center !important;
+    }
+    
+    input[type="checkbox"] {
+        width: 10px; 
+        height: 10px; 
+    }
+    
+    #tasks-container {
+        align-self: center;
+        width: 90%;
+        height: 50%;
+        border-radius: 6px;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-auto-rows: repeat(auto-fill, minmax(70px, 1fr));
+        justify-content: center;
+        align-items: flex-start;
+        overflow-y: scroll;
+        overflow-x: hidden;    
+    }
+    
+    .div-has-task {
+        width: 100%;
+        height: 100%;
+        border: 1px solid lightgray;
+        border-radius: 6px;
+        background-color: rgb(219, 248, 248);
+        display: flex;
+        max-height: 50px;
+    }
+    
+    .left-container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: 60%;
+        height: 100%;
+    }
+
+    .left-container p, .left-container h3 {
+        font-size: 70%;
+    }
+    
+    .text-box {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-around;
+        width: 80%;
+        height: 100%;
+        padding-left: 2%;
+    }
+    
+    .check {
+        width: 30% !important;
+        height: 40% !important;
+        align-self: center !important;
+    }
+    .check-box {
+        width: 20%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-self: center;
+    }
+    
+    
+    .right-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        width: 40%;
+        height: 100%;
+    }
+    
+    .task-img {
+        width: 15px;
+        height: 15px;
+    }
+    
+    .task-img:hover {
+        transform: scale(1.05);
+        cursor: pointer;
+    }
+    
+    .task-title {
+        font-size: 150%;
+    }
+    
+    .task-description {
+        font-style: italic;
+    }
+    
+    .task-date {
+        border: 1px solid black;
+        border-radius: 12px;
+        height: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2%;
+        font-size: 70%;
+    }
+    
+    #blank-edit-project {
+        display: none;
+    }
+    
+    #show-edit-project {
+        display: flex;
+    }
+    
+    .div-edit-project {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        border: 1px solid black;
+    }
+    
+    .p-edit-project {
+        width: 100%;
+        height: 100%;
+        border: 1px solid black;
+        text-align: center;
+        font-size: 70%;
+    }
+    
+    .p-edit-project:hover {
+        background-color: #fff;
+        cursor: pointer;
+    }
+    
+    .edit-with-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .edit-with-buttons input {
+        border: 1px solid black;
+        width: 100%;
+        height: 50%;
+        font-size: 50%;
+        border-radius: 1px;
+    }
+    
+    #save, #cancel {
+        width: 10px;
+        height: 10px;
+    }
+    
+    #save:hover, #cancel:hover {
+        transform: scale(1.05);
+        cursor: pointer;
+    }
+    
+    #right-container-edit-projects {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        width: 30%;
+    }
+    
+    #full-main {
+        width: 100vw;
+        height: 100vh;
     }
 }
