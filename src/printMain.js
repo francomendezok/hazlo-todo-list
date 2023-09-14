@@ -49,8 +49,7 @@ function showTaskInput(data) {
 }
 
 function createTaskForm(data) {
-    const myForm = document.getElementById('task-form');
-    // if (myForm) return;
+
     const form = document.createElement('form');
     form.id = 'task-form';
 
@@ -92,8 +91,8 @@ function createTaskForm(data) {
     const favouriteWrapper = createInputWrapper('Favourite:', 'checkbox', 'favourite', false);
     const importantWrapper = createInputWrapper('Important:', 'checkbox', 'important', false);
 
-    priorityTaskWrapper.appendChild(favouriteWrapper);
-    priorityTaskWrapper.appendChild(importantWrapper);
+    inputTaskWrapper.appendChild(favouriteWrapper);
+    inputTaskWrapper.appendChild(importantWrapper);
 
     const buttonContainer = document.createElement('div');
     buttonContainer.id = 'button-container-task';
@@ -120,11 +119,7 @@ function createTaskForm(data) {
 
     form.appendChild(inputTaskWrapper);
     form.appendChild(priorityTaskWrapper);
-    for (const key in data) {
-        if (data.hasOwnProperty(key)) {
-            form.setAttribute(`data-${key}`, data[key]);
-        }
-    }
+
 
     addButton.addEventListener('click', addTask);
     cancelButton.addEventListener('click', hideTaskSection)
