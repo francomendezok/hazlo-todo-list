@@ -66,6 +66,10 @@ function createTaskForm(data) {
         if (isRequired) {
             input.required = true;
         }
+
+        if (input.type === 'text') {
+            input.maxLength = 20;
+        }
         wrapper.appendChild(label);
         wrapper.appendChild(input);
 
@@ -133,12 +137,8 @@ function createTaskForm(data) {
        form.addEventListener('submit', event => event.preventDefault());
        addButton.removeEventListener('click', addTask);
        cancelButton.removeEventListener('click', hideTaskSection);
-        addButton.addEventListener('click', () => {
-            edit(data, 'Task', 'Modify')
-        });
-        cancelButton.addEventListener('click', () => {
-            edit(data, 'Task', 'Delete')
-        });
+        addButton.addEventListener('click', () => edit(data, 'Task', 'Modify'));
+        cancelButton.addEventListener('click', () => edit(data, 'Task', 'Delete'));
         hideButton.addEventListener('click', hideTaskSection);
     }
     return form;
@@ -335,6 +335,7 @@ function getProjectfromLocal (local) {
 }
  
 function createMainDescription (text) {
+    // if (text.textContent) text = text.textContent;
     if (!findWord(text)) {
             const info = text.dataset.local;
             const div = renderAddTaskSection();
@@ -360,7 +361,6 @@ function createMainDescription (text) {
             h3.classList.add('description');
             return h3;
         }
-         return div;
     }
 }
 

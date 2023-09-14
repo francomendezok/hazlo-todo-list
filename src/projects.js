@@ -117,6 +117,10 @@ class Task {
     }
 
     function edit (data, type, action) {
+        const h1Main = document.getElementById('h1-main');
+        const text = h1Main.textContent;
+        const toClick =  document.querySelector(`[data-name="${text}"]`);
+
         if (type === 'Project') {
             if (action === "Delete") {
                 removeData(data, 'Project');
@@ -180,23 +184,38 @@ class Task {
         }
 
         if (type === 'Task') {
-            if (action === "Delete") {
-                console.log(data);
-                removeData(data, 'Task');
-                const h1Main = document.getElementById('h1-main');
-                createMainContent(h1Main);
-                hideTaskSection();
+            if (!findWord(text)) {
+                if (action === "Delete") {
+                    removeData(data, 'Task');
+                    const h1Main = document.getElementById('h1-main');
+                    createMainContent(h1Main);
+                    hideTaskSection();
+                }
+    
+                if (action === "Modify") {
+                    taskEditLocalData(data);
+                    const h1Main = document.getElementById('h1-main');
+                    createMainContent(h1Main);
+                    hideTaskSection();
+                }
             }
 
-            if (action === "Modify") {
-                console.log(data);
-                taskEditLocalData(data);
-                const h1Main = document.getElementById('h1-main');
-                createMainContent(h1Main);
-                hideTaskSection();
-            }
+            if (findWord(text)) {
+                if (action === "Delete") {
+                    console.log('Delete now');
+                    removeData(data, 'Task');
+                    hideTaskSection();
+                    toClick.click();
+                }
+    
+                if (action === "Modify") {
+                    taskEditLocalData(data);
+                    hideTaskSection();
+                    toClick.click();
+                }
         }
     }
+}
 
     function editForm (data) {
         const title = document.getElementById('title');
@@ -303,17 +322,28 @@ class Task {
     function setFavourite (data, reference) {
         const h1Main = document.getElementById('h1-main');
         const text = h1Main.textContent;
-        let timePeriod = false;
+        const toClick =  document.querySelector(`[data-name="${text}"]`);
 
-        if (findWord(text)) timePeriod = true;
+        if (findWord(text)) {
+            if (reference.includes('empty-star')) {
+                data.favourite = true;
+                editOneTaskFeature(data);
+                toClick.click();
+            }
+            else {
+                data.favourite = false;
+                editOneTaskFeature(data);
+                toClick.click();
+            }
+        }
 
-        if (reference.includes('empty-star') && !timePeriod) {
+        if (reference.includes('empty-star') && !findWord(text)) {
             data.favourite = true;
             editOneTaskFeature(data);
             createMainContent(h1Main);
         }
 
-        else {
+        else if (!reference.includes('empty-star') && !findWord(text)) {
             data.favourite = false;
             editOneTaskFeature(data);
             createMainContent(h1Main);
@@ -322,31 +352,61 @@ class Task {
 
     function setImportant (data, reference) {
         const h1Main = document.getElementById('h1-main');
+        const text = h1Main.textContent;
+        const toClick =  document.querySelector(`[data-name="${text}"]`);
 
-        if (reference.includes('black-important')) {
+        if (findWord(text)) {
+            if (reference.includes('black-important')) {
+                data.important = true;
+                editOneTaskFeature(data);
+                toClick.click();
+            }
+            else {
+                data.important = false;
+                editOneTaskFeature(data);
+                toClick.click();
+            }
+        }
+
+        if (reference.includes('black-important') && !findWord(text)) {
             data.important = true;
             editOneTaskFeature(data);
             createMainContent(h1Main);
         }
-        else {
+
+        else if (!reference.includes('black-important') && !findWord(text)) {
             data.important = false;
             editOneTaskFeature(data);
             createMainContent(h1Main);
-        }
-
+        }        
     }
 
     function setCompleted (data) {
         const h1Main = document.getElementById('h1-main');
+        const text = h1Main.textContent;
+        const toClick =  document.querySelector(`[data-name="${text}"]`);
 
-        if (data.completed) {
-            data.completed = false;
+        if (findWord(text)) {
+            if (!data.completed) {
+                data.completed = true;
+                editOneTaskFeature(data);
+                toClick.click();
+            }
+            else {
+                data.completed = false;
+                editOneTaskFeature(data);
+                toClick.click();
+            }
+        }
+
+        if (!data.completed && !findWord(text)) {
+            data.completed = true;
             editOneTaskFeature(data);
             createMainContent(h1Main);
         }
 
-        else {
-            data.completed = true;
+        else if (data.completed && !findWord(text)) {
+            data.completed = false;
             editOneTaskFeature(data);
             createMainContent(h1Main);
         }
