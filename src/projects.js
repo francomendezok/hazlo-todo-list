@@ -1,18 +1,17 @@
-import { saveLocalProject, saveLocalTask, lookForLocalData, sortContainer, getAllLocalData } from "./localStorage";
-import { getTimePeriod, findWord, hideTaskSection, showTaskInput, defaultMain, createMainDescription, createMainContent, printMain, renderTasks } from "./printMain";
+import { saveLocalProject, lookForLocalData } from "./localStorage";
+import { findWord, hideTaskSection, showTaskInput, defaultMain, createMainContent, printMain } from "./printMain";
 
-class Project {
-    constructor (name) {
-        this.name = name;
-        this.tasks = []
+    class Project {
+        constructor (name) {
+            this.name = name;
+            this.tasks = []
+        }
+        addNewTask(task) {
+            this.tasks.push(task);
+        }
     }
-    addNewTask(task) {
-        this.tasks.push(task);
-      }
- 
-}
-class Task {
-    constructor(project, title, description, date, favourite, important, completed, local) {
+    class Task {
+        constructor(project, title, description, date, favourite, important, completed, local) {
             this.project = project;
             this.title = title;
             this.description = description;
@@ -21,18 +20,8 @@ class Task {
             this.important = important;
             this.completed = completed;
             this.local = local;
-    }
-    
-    modifyTask(project, title, description, date, favourite, important, completed) {
-            this.project = project;
-            this.title = title;
-            this.description = description;
-            this.date = date;
-            this.favourite = favourite;
-            this.important = important;
-            this.completed = completed;
-    }
-}
+        }
+    }   
 
     function createAddSection () {
         const blank = document.querySelector('.blank');
@@ -59,7 +48,6 @@ class Task {
         decline.id = 'decline';
         buttonsDiv.id = 'buttons-div';
 
-
         accept.addEventListener('click', function () {
             const regex = /^[a-zA-Z0-9]*$/;
 
@@ -69,13 +57,10 @@ class Task {
                 hideCreateSection();
                 renderProjects();
             }
-            else if (!regex.test(input.value)) {
-                alert(' Please type just Letters and Numbers')
-            }
-            else {
-                alert('Empty String');
-            }
+            else if (!regex.test(input.value)) alert(' Please type just Letters and Numbers')
+            else alert('Empty String');
         });
+
         decline.addEventListener('click', hideCreateSection);
     }
 
@@ -103,12 +88,8 @@ class Task {
         div.appendChild(renameProject);
         div.appendChild(deleteProject);
 
-        renameProject.addEventListener('click', () => {
-            edit(data, 'Project', 'Modify');
-        });
-        deleteProject.addEventListener('click', () => {
-            edit(data, 'Project', 'Delete');
-        });
+        renameProject.addEventListener('click', () => edit(data, 'Project', 'Modify'));
+        deleteProject.addEventListener('click', () => edit(data, 'Project', 'Delete'));
     }
 
     function createDivEditTask (data) {
@@ -134,7 +115,6 @@ class Task {
                 const save = document.createElement("img");
                 const cancel = document.createElement("img");
                 const rightContainer = document.createElement('div');
-
 
                 input.type = 'text';
                 input.placeholder = 'Change Name';
@@ -177,9 +157,7 @@ class Task {
                     }
                 })
 
-                cancel.addEventListener('click', () => {
-                    renderProjects();
-                })
+                cancel.addEventListener('click', () => renderProjects());
             }
         }
 
@@ -213,9 +191,9 @@ class Task {
                     hideTaskSection();
                     toClick.click();
                 }
+            }
         }
     }
-}
 
     function editForm (data) {
         const title = document.getElementById('title');
@@ -230,12 +208,6 @@ class Task {
         important.checked = data.important; 
         favourite.checked = data.favourite;    
     }
-
-    function getLocalProject (local) {
-        const localProject = JSON.parse(localStorage.getItem(local));
-        return localProject;
-    }
-
 
     function removeData (data, type) {
         if (type === "Project") {
@@ -278,7 +250,6 @@ class Task {
         const local = data.local;
         const project = JSON.parse(localStorage.getItem(local));
         const tasks = project.tasks;
-        
             for (let i = 0; i < tasks.length; i++) {
                 if (tasks[i].title === data.title) {
                     tasks[i].title = title.value;
@@ -289,10 +260,8 @@ class Task {
                     break;
                 }
             }
-            localStorage.setItem(local, JSON.stringify(project));
-        }
-    
-
+        localStorage.setItem(local, JSON.stringify(project));
+    }
 
     function hideCreateSection () {
         const blank = document.querySelector('.blank');
@@ -306,7 +275,7 @@ class Task {
         lookForLocalData();
         const projects = document.querySelectorAll('.div-project');
         projects.forEach(project => project.addEventListener('click', getProjectInfo)); 
-}
+    }
 
     function createProject (name) {
         const project = new Project(name)
@@ -317,7 +286,7 @@ class Task {
         const info = event.target;
         createMainContent(info);
         printMain(event); 
-}
+    }
 
     function setFavourite (data, reference) {
         const h1Main = document.getElementById('h1-main');
@@ -423,7 +392,7 @@ class Task {
                     tasks[i].favourite = task.favourite;
                     tasks[i].important = task.important;
                     tasks[i].completed = task.completed;
-            }
+                }
         }
         localStorage.setItem(local, JSON.stringify(project));
     }

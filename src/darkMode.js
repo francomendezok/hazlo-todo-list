@@ -2,8 +2,8 @@ import Darkmode from 'darkmode-js';
 
 
 
-function darkMode () {
-    const options = {
+    function darkMode () {
+      const options = {
         bottom: '32px', // default: '32px'
         right: '32px', // default: '32px'
         left: 'unset', // default: 'unset'
@@ -21,6 +21,6 @@ function darkMode () {
       darkmode.showWidget();
       let dark = true;
       return dark;
-}
+    }
 
 export default darkMode;

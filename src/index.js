@@ -35,13 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
             plusImages.forEach(img => img.src = './images/plus.png')
         }
     })
-    if (document.body.classList[0] === 'darkmode--activated') {
-        menu.src = './images/white-menu.png';
-        plusImages.forEach(img => img.src = './images/plus-white.png');
-    }
-    else {
-        menu.src = './images/menu.png';
-        plusImages.forEach(img => img.src = './images/plus.png')
-    }
+        if (document.body.classList[0] === 'darkmode--activated') {
+            menu.src = './images/white-menu.png';
+            plusImages.forEach(img => img.src = './images/plus-white.png');
+        }
+        else {
+            menu.src = './images/menu.png';
+            plusImages.forEach(img => img.src = './images/plus.png')
+        }
 });
 
