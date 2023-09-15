@@ -3,7 +3,7 @@ import { createDivEditProject } from "./projects";
 
     function saveLocalProject(project) {
       let projectCounter = parseInt(localStorage.getItem("projectCounter")) || 0;
-      projectCounter++;
+      projectCounter =+ 1;
 
       project.id = projectCounter;
 

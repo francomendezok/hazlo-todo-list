@@ -27,7 +27,7 @@ import { renderTasks } from "./printMain";
         printTimePeriodFromLocal(data) {
             let selectedTasks = [];
             for (let i = 0; i < data.length; i++) {
-                if (data[i].tasks.length) {
+                if (data[i].tasks.length > 0) {
                     const tasks = data[i].tasks;
                     for (let i = 0; i < tasks.length; i++) {
                         selectedTasks.push(tasks[i]);
@@ -47,7 +47,7 @@ import { renderTasks } from "./printMain";
             let selectedTasks = [];
             const today = getTodayDay();
             for (let i = 0; i < data.length; i++) {
-                if (data[i].tasks.length) {
+                if (data[i].tasks.length > 0) {
                     const tasks = data[i].tasks;
                     for (let i = 0; i < tasks.length; i++) {
                         const dateToCheck = tasks[i].date;
@@ -70,7 +70,7 @@ import { renderTasks } from "./printMain";
             let selectedTasks = [];
             const week = getWeekDates();
             for (let i = 0; i < data.length; i++) {
-                if (data[i].tasks.length) {
+                if (data[i].tasks.length > 0) {
                     const tasks = data[i].tasks;
                     for (let i = 0; i < tasks.length; i++) {
                         const dateToCheck = tasks[i].date;
@@ -92,7 +92,7 @@ import { renderTasks } from "./printMain";
         printTimePeriodFromLocal(data) {
             let selectedTasks = [];
             for (let i = 0; i < data.length; i++) {
-                if (data[i].tasks.length) {
+                if (data[i].tasks.length > 0) {
                     const tasks = data[i].tasks;
                     for (let i = 0; i < tasks.length; i++) {
                         const important = tasks[i].important;
@@ -114,7 +114,7 @@ import { renderTasks } from "./printMain";
         printTimePeriodFromLocal(data) {
             let selectedTasks = [];
             for (let i = 0; i < data.length; i++) {
-                if (data[i].tasks.length) {
+                if (data[i].tasks.length > 0) {
                     const tasks = data[i].tasks;
                     for (let i = 0; i < tasks.length; i++) {
                         const favourite = tasks[i].favourite;
@@ -136,7 +136,7 @@ import { renderTasks } from "./printMain";
         printTimePeriodFromLocal(data) {
             let selectedTasks = [];
             for (let i = 0; i < data.length; i++) {
-                if (data[i].tasks.length) {
+                if (data[i].tasks.length > 0) {
                     const tasks = data[i].tasks;
                     for (let i = 0; i < tasks.length; i++) {
                         const completed = tasks[i].completed;

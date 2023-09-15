@@ -328,7 +328,7 @@ let lastPencil;
             const info = text.dataset.local;
             const div = renderAddTaskSection();
             const tasks = getProjectfromLocal(info);
-            if (tasks.length) {
+            if (tasks.length > 0) {
                 renderTasks(tasks);
                 return div;
             }
@@ -338,7 +338,7 @@ let lastPencil;
         if (findWord(text)) {
             const div = renderAddTaskSection();
             const tasks = getTimePeriod(text);
-            if (tasks.length) {
+            if (tasks.length > 0) {
                 renderTasks(tasks);
                 return div;
             }
