@@ -1,4 +1,7 @@
-import { getAllLocalData, getLocal } from "./localStorage";
+import { 
+    getAllLocalData, 
+    getLocal 
+}   from "./localStorage";
 import { setCompleted, setFavourite, setImportant, edit, createDivEditTask, Task } from "./projects";
 import { All, Today, Week, Important, Favourite, Completed } from './timePeriod'; 
 

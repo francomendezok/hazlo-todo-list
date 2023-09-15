@@ -1,5 +1,15 @@
-import { saveLocalProject, lookForLocalData } from "./localStorage";
-import { findWord, hideTaskSection, showTaskInput, defaultMain, createMainContent, printMain } from "./printMain";
+import { 
+    saveLocalProject, 
+    lookForLocalData 
+}   from "./localStorage";
+import { 
+    findWord, 
+    hideTaskSection, 
+    showTaskInput, 
+    defaultMain, 
+    createMainContent, 
+    printMain 
+}   from "./printMain";
 
     class Project {
         constructor (name) {

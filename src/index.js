@@ -1,8 +1,23 @@
 import printSidebar from "./hideMenu";
-import { defaultMain, printMain } from "./printMain";
 import darkMode from "./darkMode";
-import { createEditSection, renderProjects, createAddSection, createProject, getProjectInfo } from "./projects";
-import { createDivProject, getLocal, saveLocalProject, saveLocalTask, lookForLocalData } from "./localStorage";
+import { 
+    defaultMain, 
+    printMain 
+}   from "./printMain";
+import { 
+    createEditSection, 
+    renderProjects, 
+    createAddSection, 
+    createProject, 
+    getProjectInfo 
+}   from "./projects";
+import { 
+    createDivProject, 
+    getLocal, 
+    saveLocalProject, 
+    saveLocalTask, 
+    lookForLocalData 
+}   from "./localStorage";
 
 const menu = document.getElementById('menu');
 const categories = document.querySelectorAll('.time-period');
